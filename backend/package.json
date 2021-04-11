@@ -1,0 +1,21 @@
+{
+  "name": "michaelolson.blog",
+  "version": "1.0.0",
+  "description": "Backend server to my personal blog for programmers",
+  "main": "server.js",
+  "scripts": {
+    "client": "npm start --prefix ../client",
+    "server": "nodemon server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^1.19.4"
+  },
+  "author": "michaelolson.1996@protonmail.com",
+  "license": "ISC"
+}
