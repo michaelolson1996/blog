@@ -1,0 +1,10 @@
+.display-crud-body {
+    flex-grow: 4;
+    height: calc(90vh - 20px);
+}
+
+.display-crud-container {
+    border: 1px solid black;
+    width: 90%;
+    height: 90%;
+}

@@ -1,0 +1,13 @@
+.create-category-container {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.category-title-input {
+    max-width: 500px;
+    min-width: 300px;
+    width: 50%;
+}

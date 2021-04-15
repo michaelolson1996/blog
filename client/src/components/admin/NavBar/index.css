@@ -1,0 +1,31 @@
+.navbar-body {
+    height: auto;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.navbar-title {
+    font-size: 2rem;
+    padding-left: 20px;
+}
+
+.navbar-list-container {
+    display: flex;
+    width:auto;
+    padding-right: 20px;
+}
+
+.navbar-list-item {
+    padding: 10px;
+    width: auto;
+    list-style: none;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .navbar-list-item {
+        display: none;
+    }
+}
