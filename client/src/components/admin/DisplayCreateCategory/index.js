@@ -6,6 +6,7 @@ import './index.css';
 function DisplayCreateCategory() {
 
     const [ image, setImage ] = useState({ preview: "", raw: "" });
+    const [ title, setTitle ] = useState("");
 
     const handleChange = e => {
         if (e.target.files.length) {
@@ -17,19 +18,27 @@ function DisplayCreateCategory() {
         console.log(image)
     }
 
-    const handleUpload = async e => {
+    const handleTitleChange = e => {
+        setTitle(e.target.value)
+    }
+
+    const handleUpload = e => {
         e.preventDefault();
-        console.log(e.target.value)
+
         const formData = new FormData();
+
+        formData.append("title", title);
         formData.append("image", image.raw);
 
         postCategory(formData);
     }
 
     return (
-        <form className="create-category-container">
+        <form
+            onSubmit={ handleUpload }
+            className="create-category-container">
             <h1>Create New Category</h1>
-            <input className="category-title-input" type="text" placeholder="Category Title" />
+            <input onChange={ handleTitleChange } className="category-title-input" type="text" placeholder="Category Title" />
             <label htmlFor="upload-button">
                 {image.preview ? (
                     <img src={image.preview} alt="dummy" width="300" height="300" />
@@ -50,7 +59,7 @@ function DisplayCreateCategory() {
                 onChange={ handleChange }
             />
 
-            <button onSubmit={ handleUpload }>Create Category</button>
+            <button type="submit">Create Category</button>
         </form>
     )
 }

@@ -1,17 +1,12 @@
 const express = require("express");
+const cors = require("cors");
+const categoryRouter = require('./routes/index');
 const app = express();
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+app.use(cors);
 
-// const AWS = require('aws-sdk');
-
-// AWS.config.update({region: 'us-west-2'});
-
-// s3 = new AWS.S3({apiVersion: '2006-03-01'});
-
-// s3.getObject({ Bucket: 'michaelolson-blog-bucket', Key: '/' },
-//     (err, data) => {
-//         if (err) console.log(err)
-//         else if (data) console.log(data)
-//     })
+app.use("/", categoryRouter);
 
 app.listen(5000, () => {
     console.log("michaelolson.blog (server):5000 [listening]");

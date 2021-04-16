@@ -17,6 +17,9 @@ export default function Admin() {
             case 'new_post': {
                 return <DisplayCRUDForm />
             }
+            default: {
+                return;
+            }
         }
     }
 

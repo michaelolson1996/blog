@@ -1,12 +1,12 @@
 const express = require('express');
-const bucketRouter = express.Router();
-const AWS = require('aws-sdk');
+const categoryRouter = express.Router();
+// const AWS = require('aws-sdk');
 
-bucketRouter.route("/")
+categoryRouter.route("/")
     .post((req, res) => {
-
-        
-
+        console.log("hello");
+        // console.log(req);
+        return res.status(200).send("hello");
     })
 
-module.exports = bucketRouter;
+module.exports = categoryRouter;

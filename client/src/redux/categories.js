@@ -1,6 +1,7 @@
 import axios from 'axios';
-const adminAxios = axios.create();
-const adminURL = '/admin';
+// import categoryRouter from '../../../backend/routes';
+const categoryAxios = axios.create();
+// const categoryURL = 'http://localhost:5000';
 
 const getCategories = categories => {
     return {
@@ -10,18 +11,15 @@ const getCategories = categories => {
 }
 
 export const postCategory = category => {
-
-    console.log(category);
-    // return dispatch => {
-    //     adminAxios.post(`${adminURL}/new/category/${category.title}`, {  })
-    //         .then(res => {
-    //             console.log(res);
-    //             dispatch(getCategories(res.data))
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //         })
-    // }
+    return dispatch => {
+        categoryAxios.post(`/`, {category: "new"})
+            .then(res => {
+                dispatch(getCategories(res))
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 }
 
 const initialCategories = [];
