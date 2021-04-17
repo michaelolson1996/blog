@@ -1,7 +1,5 @@
 import axios from 'axios';
-// import categoryRouter from '../../../backend/routes';
 const categoryAxios = axios.create();
-// const categoryURL = 'http://localhost:5000';
 
 const getCategories = categories => {
     return {
@@ -11,9 +9,11 @@ const getCategories = categories => {
 }
 
 export const postCategory = category => {
+    console.log("entering post redux funct")
     return dispatch => {
-        categoryAxios.post(`/`, {category: "new"})
+        categoryAxios.post(`/admin/category/new`, {category: "new"})
             .then(res => {
+                console.log("sent post to category backend")
                 dispatch(getCategories(res))
             })
             .catch(err => {
@@ -28,7 +28,7 @@ const categories = (categories = initialCategories, action) => {
     switch (action.type) {
         case "GET_CATEGORIES": {
             return {
-                categories: [...action.cards]
+                categories: [...action.categories]
             }
         }
         default:

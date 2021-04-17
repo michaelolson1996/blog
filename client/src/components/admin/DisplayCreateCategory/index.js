@@ -15,7 +15,6 @@ function DisplayCreateCategory() {
                 raw: e.target.files[0]
             })
         }
-        console.log(image)
     }
 
     const handleTitleChange = e => {
