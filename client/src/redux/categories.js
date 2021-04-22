@@ -1,5 +1,6 @@
 import axios from 'axios';
 const categoryAxios = axios.create();
+const categoryUrl = "/admin/category";
 
 const getCategories = categories => {
     return {
@@ -9,11 +10,9 @@ const getCategories = categories => {
 }
 
 export const postCategory = category => {
-    console.log("entering post redux funct")
     return dispatch => {
-        categoryAxios.post(`/admin/category/new`, {category: "new"})
+        return categoryAxios.post(`${ categoryUrl }/new`, category)
             .then(res => {
-                console.log("sent post to category backend")
                 dispatch(getCategories(res))
             })
             .catch(err => {
