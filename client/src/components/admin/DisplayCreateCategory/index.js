@@ -8,6 +8,7 @@ class DisplayCreateCategory extends React.Component {
         super(props)
         this.state = {
             image: {
+                image_name: "",
                 preview: "",
                 raw: ""
             },
@@ -28,6 +29,7 @@ class DisplayCreateCategory extends React.Component {
         reader.onload = () => {
             this.setState({
                 image: {
+                    image_name: e.target.files[0].name,
                     preview: URL.createObjectURL(e.target.files[0]),
                     raw: reader.result
                 }
@@ -38,14 +40,15 @@ class DisplayCreateCategory extends React.Component {
     handleUpload = e => {
         e.preventDefault();
 
-        if (this.state.title.length == 0)
+        if (this.state.title.length === 0)
             alert("needs title");
-        else if (this.state.image.raw.length == 0)
+        else if (this.state.image.raw.length === 0)
             alert("needs image");
         else
             this.props.postCategory({
                 title: this.state.title,
-                raw: this.state.image.raw
+                raw: this.state.image.raw,
+                image_name: this.state.image.image_name
             });
     }
 
@@ -70,12 +73,13 @@ class DisplayCreateCategory extends React.Component {
                     )}
                 </label>
 
-                {console.log(this.state)}
+                { console.log(this.state.image) }
     
                 <input
                     type="file"
                     id="upload-button"
                     onChange={ this.handleImageDeclaration }
+                    accept="image/*"
                 />
     
                 <button onClick={ this.handleUpload }>Create Category</button>

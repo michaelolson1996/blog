@@ -13,6 +13,7 @@ export const postCategory = category => {
     return dispatch => {
         return categoryAxios.post(`${ categoryUrl }/new`, category)
             .then(res => {
+                console.log(res)
                 dispatch(getCategories(res))
             })
             .catch(err => {

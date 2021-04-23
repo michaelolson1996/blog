@@ -1,13 +1,16 @@
 const AWS = require('aws-sdk');
 
-AWS.config.update({region: 'us-west-2'});
+AWS.config.update({region: 'us-west-1'});
 
-s3 = new AWS.S3({apiVersion: '2006-03-01'});
+const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    params: { 
+        Bucket: 'michaelolson-blog-bucket' 
+    }
+});
 
-// s3.getBucketWebsite({ Bucket: 'michaelolson-blog-bucket' },
-//     (err, data) => {
-//         if (err) console.log(err)
-//         else if (data) console.log(data)
-//     })
+const getBucketConn = () => {
+    return s3;
+}
 
-
+module.exports = getBucketConn;
