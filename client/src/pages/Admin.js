@@ -3,6 +3,7 @@ import EditButtons from '../components/admin/EditButtons';
 import DisplayCRUDItems from '../components/admin/DisplayCRUDItems';
 import DisplayCRUDForm from '../components/admin/DisplayCRUDForm';
 import DisplayCreateCategory from '../components/admin/DisplayCreateCategory';
+import DisplayEditCategory from '../components/admin/DisplayEditCategory';
 
 
 export default function Admin() {
@@ -11,11 +12,14 @@ export default function Admin() {
 
     const displayForms = () => {
         switch (operation) {
+            case 'new_post': {
+                return <DisplayCRUDForm />
+            }
             case 'new_category': {
                 return <DisplayCreateCategory />
             }
-            case 'new_post': {
-                return <DisplayCRUDForm />
+            case 'edit_category': {
+                return <DisplayEditCategory />
             }
             default: {
                 return;

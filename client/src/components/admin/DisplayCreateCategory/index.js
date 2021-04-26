@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { postCategory } from '../../../redux/categories';
+import { postCategory, getCategories } from '../../../redux/categories';
 import './index.css';
 
 class DisplayCreateCategory extends React.Component {
@@ -14,6 +14,10 @@ class DisplayCreateCategory extends React.Component {
             },
             title: ""
         }
+    }
+
+    componentDidMount = () => {
+        this.props.getCategories();
     }
 
     handleTitleChange = e => {
@@ -88,4 +92,4 @@ class DisplayCreateCategory extends React.Component {
     }
 }
 
-export default connect(state => state, { postCategory })(DisplayCreateCategory);
+export default connect(state => state, { postCategory, getCategories })(DisplayCreateCategory);

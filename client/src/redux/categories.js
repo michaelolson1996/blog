@@ -2,10 +2,23 @@ import axios from 'axios';
 const categoryAxios = axios.create();
 const categoryUrl = "/admin/category";
 
-const getCategories = categories => {
+const returnCategories = categories => {
     return {
-        type: "GET_CATEGORIES",
+        type: "RETURN_CATEGORIES",
         categories: categories
+    }
+}
+
+export const getCategories = () => {
+    return dispatch => {
+        return categoryAxios.get(`${ categoryUrl }/`)
+            .then(res => {
+                console.log(res);
+                dispatch(returnCategories(res));
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 }
 
@@ -14,7 +27,7 @@ export const postCategory = category => {
         return categoryAxios.post(`${ categoryUrl }/new`, category)
             .then(res => {
                 console.log(res)
-                dispatch(getCategories(res))
+                dispatch(returnCategories(res))
             })
             .catch(err => {
                 console.log(err);
@@ -26,7 +39,7 @@ const initialCategories = [];
 
 const categories = (categories = initialCategories, action) => {
     switch (action.type) {
-        case "GET_CATEGORIES": {
+        case "RETURN_CATEGORIES": {
             return {
                 categories: [...action.categories]
             }
