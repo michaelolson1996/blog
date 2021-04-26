@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { getCategories } from '../redux/categories';
 import EditButtons from '../components/admin/EditButtons';
 import DisplayCRUDItems from '../components/admin/DisplayCRUDItems';
 import DisplayCRUDForm from '../components/admin/DisplayCRUDForm';
@@ -6,34 +8,48 @@ import DisplayCreateCategory from '../components/admin/DisplayCreateCategory';
 import DisplayEditCategory from '../components/admin/DisplayEditCategory';
 
 
-export default function Admin() {
-
-    const [ operation, setOperation ] = new useState(null);
-
-    const displayForms = () => {
-        switch (operation) {
-            case 'new_post': {
-                return <DisplayCRUDForm />
-            }
-            case 'new_category': {
-                return <DisplayCreateCategory />
-            }
-            case 'edit_category': {
-                return <DisplayEditCategory />
-            }
-            default: {
-                return;
-            }
+class Admin extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            operation: ''
         }
     }
 
-    return (
-        <div style={{ display: 'flex', width: '100vw' }}>
-            { console.log(operation) }
-            <EditButtons setOperation={ setOperation } />
-            <DisplayCRUDItems>
-                { displayForms() }
-            </DisplayCRUDItems>
-        </div>
-    )
+    componentDidMount() {
+        this.props.getCategories();
+    }
+
+    displayForms = () => {
+        switch (this.state.operation) {
+            case 'new_post':
+                return <DisplayCRUDForm />
+            case 'new_category':
+                return <DisplayCreateCategory categories={ this.props.categories.categories } />
+            case 'edit_category':
+                return <DisplayEditCategory categories={ this.props.categories.categories } />
+            default:
+                return;
+        }
+    }
+
+    setOperation = (operation) => {
+        this.setState({
+            operation: operation
+        })
+    }
+
+    render() {
+        return (
+            <div style={{ display: 'flex', width: '100vw' }}>
+                {/* { console.log(operation) } */}
+                <EditButtons setOperation={ this.setOperation } />
+                <DisplayCRUDItems>
+                    { this.displayForms() }
+                </DisplayCRUDItems>
+            </div>
+        )
+    }
 }
+
+export default connect(state => state, { getCategories })(Admin)

@@ -1,26 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getCategories } from '../../../redux/categories';
+import React, { useState } from 'react';
+import CategoryItem from '../CategoryItem';
 
-class DisplayEditCategory extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            categories: []
-        }
-    }
+export default function DisplayEditCategory(props) {
+    
+    const [state, setState] = useState({ isEditing: false, title: '', image: '' })
 
-    componentDidMount() {
-        this.props.getCategories();
-    }
+    return (
+        <div style={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap' }}>
 
-    render() {
-        return (
-            <div>
-
-            </div>
-        )
-    }
+            {
+                props.categories.map((category, i) => {
+                    return <CategoryItem key={i} src={`data:image/png;base64,${category.image}`} title={category.title} />
+                })
+            }
+        </div>
+    )
 }
-
-export default connect(state => state, { getCategories })(DisplayEditCategory);

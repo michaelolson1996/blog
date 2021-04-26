@@ -15,10 +15,7 @@ class DisplayCreateCategory extends React.Component {
             title: ""
         }
     }
-
-    componentDidMount = () => {
-        this.props.getCategories();
-    }
+ 
 
     handleTitleChange = e => {
         this.setState({

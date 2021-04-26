@@ -13,8 +13,8 @@ export const getCategories = () => {
     return dispatch => {
         return categoryAxios.get(`${ categoryUrl }/`)
             .then(res => {
-                console.log(res);
-                dispatch(returnCategories(res));
+                console.log(res)
+                dispatch(returnCategories(res.data.categories));
             })
             .catch(err => {
                 console.log(err);

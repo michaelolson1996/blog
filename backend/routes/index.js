@@ -4,20 +4,6 @@ const getBucketConn = require('../s3/index');
 const AWS = require('aws-sdk');
 const s3 = getBucketConn();
 
-
-const hello = async (params, title, categories, i, count, res) => {
-    const result = await s3.getObject(params).promise();
-
-    // console.log(result.Body.toString('base64'))
-
-    categories.push({
-        title,
-        body: result.Body.toString('base64')
-    })
-
-    // console.log(categories)
-}
-
 categoryRouter.route("/")
     .get((req, res) => {
         s3.listObjectsV2({ Delimiter: "/" }).promise()
@@ -28,19 +14,21 @@ categoryRouter.route("/")
             return data.CommonPrefixes
         })
         .then((data, err) => {
+            if (err)
+                return res.send({ success: false, message: err.message })
 
-            const functionW = item => {
-                return item
+            const returnPromise = promiseObject => {
+                return promiseObject
             }
 
-            let myMap = async () => { 
+            const listCategories = async () => { 
                 return Promise.all(data.map(prefix => { 
-                    return functionW(s3.listObjectsV2({ Prefix: prefix.Prefix }).promise()) 
+                    return returnPromise(s3.listObjectsV2({ Prefix: prefix.Prefix }).promise()) 
                 })
             )}
 
-            myMap().then(data => {
-                let myNewMap = async () => {
+            listCategories().then(data => {
+                const getCategoryData = async () => {
                     return Promise.all(data.map(object => {
                         let title = object.Prefix.substring(0, object.Prefix.length - 1);
                         let params = {
@@ -48,7 +36,7 @@ categoryRouter.route("/")
                             Key: object.Contents.find(object => object.Key.includes("category_image")).Key
                         }
 
-                        return functionW(
+                        return returnPromise(
                             s3.getObject(params).promise().then(data => {
                                 return { data, title }
                             })
@@ -56,8 +44,12 @@ categoryRouter.route("/")
                     }))
                 }
 
-                myNewMap().then(data => {
-                    res.send({ data })
+                getCategoryData().then(data => {
+                    const categories = data.map(category => {
+                        return { image: category.data.Body.toString('base64'), title: category.title }
+                    })
+
+                    res.send({categories})
                 })
             })
         })
