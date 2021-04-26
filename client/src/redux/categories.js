@@ -13,7 +13,6 @@ export const getCategories = () => {
     return dispatch => {
         return categoryAxios.get(`${ categoryUrl }/`)
             .then(res => {
-                console.log(res)
                 dispatch(returnCategories(res.data.categories));
             })
             .catch(err => {
@@ -26,8 +25,7 @@ export const postCategory = category => {
     return dispatch => {
         return categoryAxios.post(`${ categoryUrl }/new`, category)
             .then(res => {
-                console.log(res)
-                dispatch(returnCategories(res))
+                dispatch(getCategories(res))
             })
             .catch(err => {
                 console.log(err);
