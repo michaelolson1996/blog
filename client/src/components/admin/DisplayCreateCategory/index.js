@@ -61,17 +61,14 @@ class DisplayCreateCategory extends React.Component {
                 <h1>Create New Category</h1>
                 <input onChange={ this.handleTitleChange } className="category-title-input" type="text" placeholder="Category Title" />
                 <label htmlFor="upload-button">
-                    {this.state.image.preview ? (
-                        <img src={this.state.image.preview} alt="dummy" width="300" height="300" />
-                    ) : (
-                        <>
-                            {/* <span className="fa-stack fa-2x mt-3 mb-2">
-                                <i className="fas fa-circle fa-stack-2x" />
-                                <i className="fas fa-store fa-stack-1x fa-inverse" />
-                            </span> */}
-                            {/* <h5 className="text-center">Upload your photo</h5> */}
-                        </>
-                    )}
+                    {
+                        this.state.image.preview ? (
+                            <img src={this.state.image.preview} alt="dummy" width="300" height="300" />
+                        ) : (
+                            <>
+                            </>
+                        )
+                    }
                 </label>
 
                 { console.log(this.state.image) }

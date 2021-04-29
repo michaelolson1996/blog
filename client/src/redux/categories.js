@@ -9,6 +9,10 @@ const returnCategories = categories => {
     }
 }
 
+export const editCategory = () => {
+    
+}
+
 export const getCategories = () => {
     return dispatch => {
         return categoryAxios.get(`${ categoryUrl }/`)

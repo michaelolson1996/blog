@@ -5,7 +5,7 @@ const AWS = require('aws-sdk');
 const s3 = getBucketConn();
 
 categoryRouter.route("/")
-    .get((req, res) => {
+    .all((req, res) => {
         s3.listObjectsV2({ Delimiter: "/" }).promise()
         .then((data, err) => {
             if (err)
@@ -55,8 +55,14 @@ categoryRouter.route("/")
         })
     })
 
+categoryRouter.route("/edit")
+    .all((req, res) => {
+
+        
+    })
+
 categoryRouter.route("/new")
-    .post((req, res) => {
+    .all((req, res) => {
 
         let title = req.body.title;
         let file = req.body.raw;
