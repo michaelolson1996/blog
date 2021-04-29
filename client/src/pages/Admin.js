@@ -23,7 +23,7 @@ class Admin extends React.Component {
     displayForms = () => {
         switch (this.state.operation) {
             case 'new_post':
-                return <DisplayCRUDForm />
+                return <DisplayCRUDForm categories={ this.props.categories.categories } />
             case 'new_category':
                 return <DisplayCreateCategory categories={ this.props.categories.categories } />
             case 'edit_category':
@@ -42,7 +42,6 @@ class Admin extends React.Component {
     render() {
         return (
             <div style={{ display: 'flex', width: '100vw' }}>
-                {/* { console.log(operation) } */}
                 <EditButtons setOperation={ this.setOperation } />
                 <DisplayCRUDItems>
                     { this.displayForms() }

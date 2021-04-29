@@ -58,7 +58,36 @@ categoryRouter.route("/")
 categoryRouter.route("/edit")
     .all((req, res) => {
 
-        
+        if (req.body.title === req.body.newTitle && req.body.image === req.body.newImage)
+            return res.send({ success: false, message: 'titles and images are the same' })
+
+        if (req.body.title !== req.body.newTitle) {
+
+            async function emptyS3Directory() {
+                const params = {
+                    Bucket: 'michaelolson-blog-bucket',
+                    Prefix: `${ req.body.title }`
+                }
+    
+                const listedObjects = await s3.listObjectsV2(params).promise();
+                const old_keys = []
+
+                listedObjects.Contents.forEach(item => {
+                    old_keys.push(item.Key)
+                })
+    
+                new_keys = old_keys.map(key => {
+                    split_key = key.split("/");
+                    split_key.splice(0, 1, req.body.newTitle);
+                    return split_key.join("/");
+                })
+            }
+
+            emptyS3Directory();
+
+        }
+
+        return res.send({ success: true, message: 'moved category to new title' })
     })
 
 categoryRouter.route("/new")

@@ -9,8 +9,16 @@ const returnCategories = categories => {
     }
 }
 
-export const editCategory = () => {
-    
+export const editCategory = category => {
+    return dispatch => {
+        return categoryAxios.put(`${ categoryUrl }/edit`, category)
+            .then(res => {
+                dispatch(getCategories(res));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }
 
 export const getCategories = () => {

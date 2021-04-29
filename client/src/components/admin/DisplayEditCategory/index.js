@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CategoryItem from '../CategoryItem';
 import { connect } from 'react-redux';
+import { editCategory } from '../../../redux/categories';
 
 class DisplayEditCategory extends React.Component {
     constructor(props) {
@@ -57,7 +58,17 @@ class DisplayEditCategory extends React.Component {
         if (this.state.title === this.state.newTitle && this.state.image === this.state.newImage)
             return alert("items have not changed")
 
-        
+        if (this.state.newTitle.length === 0 || this.state.newImage.length === 0)
+            return alert("title and image must be not empty")
+            
+        this.props.editCategory({ 
+            title: this.state.title,
+            newTitle: this.state.newTitle,
+            image: this.state.image,
+            newImage: this.state.newImage
+        });
+
+        this.displayCategories();
     }
 
     render() {
@@ -69,7 +80,6 @@ class DisplayEditCategory extends React.Component {
                             <div>
                                 <label htmlFor='new-title'>New Title</label>
                                 <input onChange={ this.updateTitle }
-                                    name='new-title'
                                     id='new-title'
                                     type='text'
                                     value={ this.state.newTitle } />
@@ -86,13 +96,16 @@ class DisplayEditCategory extends React.Component {
                     :
                         <div style={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap' }}>
                             {
-                                this.props.categories.categories.map((category, i) => {
-                                    return <CategoryItem
-                                                editCategory={ this.editCategory }
-                                                key={i}
-                                                src={`data:image/png;base64,${category.image}`}
-                                                title={category.title} />
-                                })
+                                (this.props.categories.categories) ?
+                                    this.props.categories.categories.map((category, i) => {
+                                        return <CategoryItem
+                                                    editCategory={ this.editCategory }
+                                                    key={i}
+                                                    src={`data:image/png;base64,${category.image}`}
+                                                    title={category.title} />
+                                    })
+                                :
+                                    <></>
                             }
                         </div>
                 }
@@ -101,4 +114,4 @@ class DisplayEditCategory extends React.Component {
     }
 }
 
-export default connect(state => state, {  })(DisplayEditCategory)
+export default connect(state => state, { editCategory })(DisplayEditCategory)

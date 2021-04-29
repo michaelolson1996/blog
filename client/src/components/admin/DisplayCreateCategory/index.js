@@ -62,12 +62,10 @@ class DisplayCreateCategory extends React.Component {
                 <input onChange={ this.handleTitleChange } className="category-title-input" type="text" placeholder="Category Title" />
                 <label htmlFor="upload-button">
                     {
-                        this.state.image.preview ? (
+                        this.state.image.preview ?
                             <img src={this.state.image.preview} alt="dummy" width="300" height="300" />
-                        ) : (
-                            <>
-                            </>
-                        )
+                        :
+                            <></>
                     }
                 </label>
 
@@ -77,8 +75,7 @@ class DisplayCreateCategory extends React.Component {
                     type="file"
                     id="upload-button"
                     onChange={ this.handleImageDeclaration }
-                    accept="image/*"
-                />
+                    accept="image/*" />
     
                 <button onClick={ this.handleUpload }>Create Category</button>
             </form>
