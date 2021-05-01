@@ -120,7 +120,18 @@ class DisplayCRUDForm extends React.Component {
             <>
                 <h2>Paragraph</h2>
                 <textarea id='paragraph-data' cols='60' rows='7' />
-                <button onClick={ (e) => this.submitData(e, {type: 'paragraph', value: document.getElementById('paragraph-data').value}) }>Submit</button>
+                <button onClick={ (e) => this.submitData(e, {
+                    type: 'paragraph', 
+                    value: document.getElementById('paragraph-data').value,
+                    getValue: function() {
+                        return (
+                            <div>
+
+                            </div>
+                        );
+                    }
+                    }) }>Submit
+                </button>
             </>
         );
     }
@@ -164,6 +175,8 @@ class DisplayCRUDForm extends React.Component {
         return (
             <>
                 <h2>Section Title</h2>
+                <input id='section-title-data' type='text' />
+                <button onClick={ (e) => this.submitData(e, {type: 'section title', value: document.getElementById('section-title-data').value}) }>Submit</button>
             </>
         );
     }
@@ -210,8 +223,6 @@ class DisplayCRUDForm extends React.Component {
             }
         }
 
-        // return formData;
-
         return (
             <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 { formData }
@@ -228,6 +239,12 @@ class DisplayCRUDForm extends React.Component {
                 blogItem: e.target.textContent
             }
         }))
+    }
+
+    displayContent = () => {
+        this.state.post.content.forEach(item => {
+
+        })
     }
 
     render() {
@@ -288,15 +305,16 @@ class DisplayCRUDForm extends React.Component {
                 }
 
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
-                        <button onClick={ this.displayBlogItemForm }>Paragraph</button>
-                        <button onClick={ this.displayBlogItemForm }>Image</button>
-                        <button onClick={ this.displayBlogItemForm }>Code</button>
-                        <button onClick={ this.displayBlogItemForm }>Video</button>
-                        <button onClick={ this.displayBlogItemForm }>Seperator</button>
-                        <button onClick={ this.displayBlogItemForm }>Section Title</button>
+                    {
+                        ["Paragraph", "Image", "Code", "Video", "Seperator", "Section Title"].map((buttonName, i) => {
+                            return <button key={i} onClick={ this.displayBlogItemForm }>{ buttonName }</button>
+                        })
+                    }
                 </div>
                 <div className='blog-container' style={{ width: '100%', height: 'auto' }}>
-
+                    {
+                        this.displayContent()
+                    }
                 </div>
             </form>
         )

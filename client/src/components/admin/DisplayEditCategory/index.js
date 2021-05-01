@@ -96,7 +96,7 @@ class DisplayEditCategory extends React.Component {
                     :
                         <div style={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap' }}>
                             {
-                                (this.props.categories.categories) ?
+                                this.props.categories.categories ?
                                     this.props.categories.categories.map((category, i) => {
                                         return <CategoryItem
                                                     editCategory={ this.editCategory }
