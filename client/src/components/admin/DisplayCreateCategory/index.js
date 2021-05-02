@@ -68,8 +68,6 @@ class DisplayCreateCategory extends React.Component {
                             <></>
                     }
                 </label>
-
-                { console.log(this.state.image) }
     
                 <input
                     type="file"

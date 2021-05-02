@@ -125,22 +125,94 @@ class DisplayCRUDForm extends React.Component {
                     value: document.getElementById('paragraph-data').value,
                     getValue: function() {
                         return (
-                            <div>
-
+                            <div style={{ width: '100%', height: 'auto', letterSpacing: '.2', marginTop: '20px' }}>
+                                <p>{this.value}</p>
                             </div>
                         );
                     }
-                    }) }>Submit
+                }) }>Submit
                 </button>
             </>
         );
     }
 
     addImage = () => {
+
+        const extractImageData = e => {
+            let reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = () => {
+                this.setState(oldState => ({
+                    ...oldState,
+                    blogItemForm: {
+                        ...oldState.blogItemForm,
+                        display: !oldState.blogItemForm.display
+                    },
+                    post: {
+                        ...oldState.post,
+                        content: [...oldState.post.content, {
+                            type: 'image',
+                            value: reader.result,
+                            getValue: function() {
+                                return (
+                                    <div>
+                                        <img src={ this.value } />
+                                    </div>
+                                )
+                            }
+                        }],
+                    }
+                }));
+            }
+        }
+
         return (
             <>
                 <h2>Image</h2>
+                <input type='file' 
+                       accept='image/*'
+                       id='image-data'
+                       onChange={ extractImageData } />
+            </>
+        );
+    }
 
+
+    addVideo = () => {
+        const extractImageData = e => {
+            let reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = () => {
+                this.setState(oldState => ({
+                    ...oldState,
+                    blogItemForm: {
+                        ...oldState.blogItemForm,
+                        display: !oldState.blogItemForm.display
+                    },
+                    post: {
+                        ...oldState.post,
+                        content: [...oldState.post.content, {
+                            type: 'video',
+                            value: reader.result,
+                            getValue: function() {
+                                return (
+                                    <div>
+                                        <video controls='true' src={ this.value } />
+                                    </div>
+                                )
+                            }
+                        }],
+                    }
+                }));
+            }
+        }
+
+        return (
+            <>
+                <h2>Video</h2>
+                <input id='video-data' type='file' accept='video/*' onChange={ extractImageData } />
             </>
         );
     }
@@ -149,26 +221,39 @@ class DisplayCRUDForm extends React.Component {
         return (
             <>
                 <h2>Code</h2>
-                <textarea id='code-data' cols='60' rows='7' />
-                <button onClick={ (e) => this.submitData(e, {type: 'code', value: document.getElementById('code-data').value}) }>Submit</button>
-            </>
-        );
-    }
-
-    addVideo = () => {
-        return (
-            <>
-                <h2>Video</h2>
+                <textarea id='code-data' cols='60' rows='7' /> { console.log(document.getElementById('code-data')) }
+                <button onClick={ (e) => this.submitData(e, {
+                    type: 'code', 
+                    value: document.getElementById('code-data').value,
+                    getValue: function() {
+                        return (
+                            <div style={{ backgroundColor: 'rgba(90,90,90,0.2)', padding: '20px' }}>
+                                <p>{this.value}</p>
+                            </div>
+                        )
+                    }}) }>Submit</button>
             </>
         );
     }
 
     addSeperator = () => {
-        return (
-            <>
-                <h2>Seperator</h2>
-            </>
-        );
+        // return (
+        //     <>
+        //         <h2>Seperator</h2>
+        //         <button onClick={ e => this.submitData(e, {
+        //             type: 'seperator',
+        //             getValue: function() {
+        //                 return (
+        //                     <div>
+                                
+        //                     </div>
+        //                 );
+        //             }
+        //         })}>
+        //             Submit
+        //         </button>
+        //     </>
+        // );
     }
 
     addSectionTitle = () => {
@@ -176,7 +261,16 @@ class DisplayCRUDForm extends React.Component {
             <>
                 <h2>Section Title</h2>
                 <input id='section-title-data' type='text' />
-                <button onClick={ (e) => this.submitData(e, {type: 'section title', value: document.getElementById('section-title-data').value}) }>Submit</button>
+                <button onClick={ e => this.submitData(e, {
+                    type: 'section title', 
+                    value: document.getElementById('section-title-data').value,
+                    getValue: function() {
+                        return (
+                            <div>
+                                <h3>{this.value}</h3>
+                            </div>
+                        )
+                    }}) }>Submit</button>
             </>
         );
     }
@@ -242,14 +336,15 @@ class DisplayCRUDForm extends React.Component {
     }
 
     displayContent = () => {
-        this.state.post.content.forEach(item => {
-
+        return this.state.post.content.map(item => {
+            return item.getValue();
         })
     }
 
     render() {
         return (
-            <form style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+            <div style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
+                { console.log(this.state) }
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '30px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'space-around', height: '150px' }}>
                         <label>
@@ -306,17 +401,17 @@ class DisplayCRUDForm extends React.Component {
 
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
                     {
-                        ["Paragraph", "Image", "Code", "Video", "Seperator", "Section Title"].map((buttonName, i) => {
+                        ["Section Title", "Paragraph", "Image", "Code", "Video", "Seperator"].map((buttonName, i) => {
                             return <button key={i} onClick={ this.displayBlogItemForm }>{ buttonName }</button>
                         })
                     }
                 </div>
-                <div className='blog-container' style={{ width: '100%', height: 'auto' }}>
+                <div className='blog-container' style={{ width: '600px' }}>
                     {
                         this.displayContent()
                     }
                 </div>
-            </form>
+            </div>
         )
     }
 }
