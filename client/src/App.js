@@ -1,7 +1,6 @@
 import Admin from './pages/Admin';
 import Home from './pages/Home';
 import NavBar from './components/admin/NavBar';
-
 import {
     BrowserRouter as Router,
     Route,

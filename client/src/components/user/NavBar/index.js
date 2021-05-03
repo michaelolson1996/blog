@@ -7,8 +7,6 @@ export default function NavBar() {
             <ul>
                 <li>Home</li>
                 <li>About</li>
-                <li>Portfolio</li>
-                <li>Contact</li>
                 <li>Donate</li>
             </ul>
         </div>

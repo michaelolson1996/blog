@@ -1,34 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Preview from '../Preview';
 
 class DisplayCRUDForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             dropdown: {
-                display: false
+                display: false,
+            },
+            preview: {
+                display: false,
             },
             blogItemForm: {
                 display: false,
-                blogItem: ''
+                blogItem: '',
             },
             categories: [],
-            chosenCategory: '',
             post: {
+                chosenCategory: '',
                 title: '',
                 subTitle: '',
                 dateCreated: '',
                 headerImage: {
                     raw: '',
-                    preview: ''
+                    preview: '',
                 },
-                content: []
-            }
+                content: [],
+            },
         }
     }
 
     componentDidMount() {
-        this.addCategoriesToState()
+        this.addCategoriesToState();
+    }
+
+    componentDidUpdate() {
+        if (this.props.categories.categories !== undefined)
+            if (this.state.categories.length === 0 && this.props.categories.categories.length !== 0)
+                this.addCategoriesToState()
     }
 
     addCategoriesToState = async () => {
@@ -36,7 +46,8 @@ class DisplayCRUDForm extends React.Component {
         const categories = await this.props.categories.categories;
 
         if (categories !== undefined) {
-            this.setState(({
+            this.setState(oldState => ({
+                ...oldState,
                 categories: [...categories],
             }));
         }
@@ -52,7 +63,7 @@ class DisplayCRUDForm extends React.Component {
         }));
     }
 
-    chooseCategory = (title) => {
+    chooseCategory = title => {
         this.setState(oldState => ({
             dropdown: {
                 display: !oldState.dropdown.display
@@ -76,8 +87,10 @@ class DisplayCRUDForm extends React.Component {
         e.preventDefault()
 
         this.setState(oldState => ({
-            ...oldState.post,
-            subTitle: e.target.value,
+            post: {
+                ...oldState.post,
+                subTitle: e.target.value,
+            }
         }))
     }
 
@@ -113,6 +126,8 @@ class DisplayCRUDForm extends React.Component {
                 content: [...oldState.post.content, data],
             }
         }));
+
+        this.updateLocalStorage();
     }
 
     addParagraph = () => {
@@ -154,10 +169,17 @@ class DisplayCRUDForm extends React.Component {
                         content: [...oldState.post.content, {
                             type: 'image',
                             value: reader.result,
-                            getValue: function() {
+                            getValue: () => {
                                 return (
                                     <div>
-                                        <img src={ this.value } />
+                                        <img alt="blog-post-img" src={ this.value } />
+                                    </div>
+                                )
+                            },
+                            getFinalValue: () => {
+                                return (
+                                    <div>
+                                        
                                     </div>
                                 )
                             }
@@ -177,7 +199,6 @@ class DisplayCRUDForm extends React.Component {
             </>
         );
     }
-
 
     addVideo = () => {
         const extractImageData = e => {
@@ -199,7 +220,7 @@ class DisplayCRUDForm extends React.Component {
                             getValue: function() {
                                 return (
                                     <div>
-                                        <video controls='true' src={ this.value } />
+                                        <video autoPlay={true} loop={true} style={{ width: '100%' }} src={ this.value } />
                                     </div>
                                 )
                             }
@@ -237,23 +258,45 @@ class DisplayCRUDForm extends React.Component {
     }
 
     addSeperator = () => {
-        // return (
-        //     <>
-        //         <h2>Seperator</h2>
-        //         <button onClick={ e => this.submitData(e, {
-        //             type: 'seperator',
-        //             getValue: function() {
-        //                 return (
-        //                     <div>
-                                
-        //                     </div>
-        //                 );
-        //             }
-        //         })}>
-        //             Submit
-        //         </button>
-        //     </>
-        // );
+
+        const extractImageData = e => {
+            let reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0]);
+
+            reader.onload = () => {
+                this.setState(oldState => ({
+                    ...oldState,
+                    blogItemForm: {
+                        ...oldState.blogItemForm,
+                        display: !oldState.blogItemForm.display
+                    },
+                    post: {
+                        ...oldState.post,
+                        content: [...oldState.post.content, {
+                            type: 'seperator',
+                            value: reader.result,
+                            getValue: function() {
+                                return (
+                                    <div>
+                                        <img alt="" src={ this.value } />
+                                    </div>
+                                )
+                            }
+                        }],
+                    }
+                }));
+            }
+        }
+
+        return (
+            <>
+            <h2>Seperator</h2>
+            <input type='file' 
+                   accept='image/*'
+                   id='seperator-data'
+                   onChange={ extractImageData } />
+        </>
+        );
     }
 
     addSectionTitle = () => {
@@ -335,16 +378,104 @@ class DisplayCRUDForm extends React.Component {
         }))
     }
 
+    moveItemUp = (e,i) => {
+        e.preventDefault();
+
+        let content = this.state.post.content;
+        let movedItem = content.splice(i, 1);
+        i === 0 ?
+            content.push(movedItem[0])
+        :
+            content.splice(i - 1, 0, movedItem[0])
+        
+        this.setState(oldState => ({
+            ...oldState,
+            blogItemForm: {
+                ...oldState.blogItemForm,
+            },
+            post: {
+                ...oldState.post,
+                content: content,
+            }
+        }))
+    }
+
+    removeItem = (e,i) => {
+        e.preventDefault();
+
+        let content = this.state.post.content;
+        content.splice(i, 1);
+
+        this.setState(oldState => ({
+            ...oldState,
+            blogItemForm: {
+                ...oldState.blogItemForm,
+            },
+            post: {
+                ...oldState.post,
+                content: content,
+            }
+        }))
+    }
+
+    moveItemDown = (e,i) => {
+        e.preventDefault();
+
+        let content = this.state.post.content;
+        let movedItem = content.splice(i, 1);
+
+        i === content.length ?
+            content.splice(0,0,movedItem[0])
+        :
+            content.splice(i + 1, 0, movedItem[0])
+
+        this.setState(oldState => ({
+            ...oldState,
+            blogItemForm: {
+                ...oldState.blogItemForm,
+            },
+            post: {
+                ...oldState.post,
+                content: content,
+            }
+        }))
+    }
+
     displayContent = () => {
-        return this.state.post.content.map(item => {
-            return item.getValue();
+        return this.state.post.content.map((item, i) => {
+            return (
+                <div key={i} style={{ width: '100%', display: 'flex', height: 'auto', minHeight: '300px', alignItems: 'center' }}>
+                    <div>
+                        <h2>{ item.type }</h2>
+                        { item.getValue() }
+                    </div>
+                    <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'  }}>
+                        <button onClick={ e =>  this.moveItemUp(e, i) } style={{ width: '200px' }}>Move Up</button>
+                        <button onClick={ e => this.removeItem(e, i) } style={{ width: '200px' }}>Remove</button>
+                        <button onClick={ e =>  this.moveItemDown(e, i) } style={{ width: '200px' }}>Move Down</button>
+                    </div>
+                </div>
+            );
         })
+    }
+
+    updateLocalStorage = () => {
+        localStorage.setItem('post', JSON.stringify(this.state.post))
+    }
+
+    togglePreview = () => {
+
+        this.setState(oldState => ({
+            ...oldState,
+            preview: {
+                display: !oldState.preview.display,
+            },
+        }))
     }
 
     render() {
         return (
             <div style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                { console.log(this.state) }
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '30px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'space-around', height: '150px' }}>
                         <label>
@@ -360,7 +491,7 @@ class DisplayCRUDForm extends React.Component {
                     <div style={{ height: 'auto', display: 'flex', flexDirection: 'column' }}>
                         <button onClick={ this.displayDropdown } style={{ height: '40px', width: '280px' }}>{ this.state.chosenCategory ? this.state.chosenCategory : 'Pick Category'}</button>
                         {
-                            (this.state.dropdown.display && this.state.categories) ?
+                            this.state.dropdown.display && this.state.categories ?
                                 this.state.categories.map((category, i) => {
                                     return (
                                         <button onClick={ () => this.chooseCategory(category.title) } key={i} style={{ display: 'flex', alignItems: 'center', height: '40px', width: '280px', position: 'relative' }}>
@@ -398,7 +529,6 @@ class DisplayCRUDForm extends React.Component {
                     :
                         <></>
                 }
-
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
                     {
                         ["Section Title", "Paragraph", "Image", "Code", "Video", "Seperator"].map((buttonName, i) => {
@@ -406,11 +536,18 @@ class DisplayCRUDForm extends React.Component {
                         })
                     }
                 </div>
-                <div className='blog-container' style={{ width: '600px' }}>
+                <div className='blog-container' style={{ width: '100%' }}>
                     {
                         this.displayContent()
                     }
                 </div>
+                <div onClick={ this.togglePreview }>Preview</div>
+                {
+                    this.state.preview.display ?
+                        <Preview togglePreview={ this.togglePreview }  post={ this.state.post } />
+                    :
+                        <></>
+                }
             </div>
         )
     }
