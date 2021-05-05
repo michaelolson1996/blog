@@ -7,6 +7,7 @@ export default function Preview(props) {
     return (
         <div style={{ position: 'absolute', top: '0', left: '0', height: '100vh', width: '100vw', backgroundColor: 'white', overflowX: 'hidden' }}>
             <div style={{ width: '100vw', height: '100px', backgroundColor: 'blue', marginBottom: '40px' }}>
+                <div style={{ position: 'absolute', top: '20px', right: '20px', color: 'white' }} onClick={ props.togglePreview }>hello</div>
 
             </div>
             <div style={{ maxWidth: '1000px', width: '90%', minWidth: '300px', margin: 'auto' }}>
@@ -17,7 +18,6 @@ export default function Preview(props) {
                 </div>
                 { post.content.map(item => item.getValue()) }
             </div>
-            <div onClick={ props.togglePreview }>hello</div>
         </div>
     );
 }

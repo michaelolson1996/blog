@@ -126,8 +126,6 @@ class DisplayCRUDForm extends React.Component {
                 content: [...oldState.post.content, data],
             }
         }));
-
-        this.updateLocalStorage();
     }
 
     addParagraph = () => {
@@ -172,7 +170,7 @@ class DisplayCRUDForm extends React.Component {
                             getValue: () => {
                                 return (
                                     <div>
-                                        <img alt="blog-post-img" src={ this.value } />
+                                        <img alt="blog-post-img" src={ reader.result } />
                                     </div>
                                 )
                             },
@@ -459,9 +457,9 @@ class DisplayCRUDForm extends React.Component {
         })
     }
 
-    updateLocalStorage = () => {
-        localStorage.setItem('post', JSON.stringify(this.state.post))
-    }
+    // updateLocalStorage = () => {
+    //     localStorage.setItem('post', JSON.stringify(this.state.post))
+    // }
 
     togglePreview = () => {
 
