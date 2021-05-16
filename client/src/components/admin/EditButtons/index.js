@@ -11,7 +11,7 @@ export default function EditButtons(props) {
                     </button>
                 </li>
                 <li className='admin-button-li'>
-                    <button className='admin-button'>
+                    <button onClick={ () => props.setOperation("edit_post") } className='admin-button'>
                         Edit Post
                     </button>
                 </li>

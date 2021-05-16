@@ -471,6 +471,15 @@ class DisplayCRUDForm extends React.Component {
         }))
     }
 
+    savePost = () => {
+        let postData = JSON.stringify(this.state.post);
+        console.log(postData);
+    }
+
+    publishPost = () => {
+
+    }
+
     render() {
         return (
             <div style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
@@ -540,6 +549,8 @@ class DisplayCRUDForm extends React.Component {
                     }
                 </div>
                 <div onClick={ this.togglePreview }>Preview</div>
+                <div onClick={ this.savePost }>Save</div>
+                <div onClick={ this.publishPost }>Publish</div>
                 {
                     this.state.preview.display ?
                         <Preview togglePreview={ this.togglePreview }  post={ this.state.post } />

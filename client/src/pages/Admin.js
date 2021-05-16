@@ -24,6 +24,8 @@ class Admin extends React.Component {
         switch (this.state.operation) {
             case 'new_post':
                 return <DisplayCRUDForm categories={ this.props.categories.categories } />
+            case 'edit_post':
+                
             case 'new_category':
                 return <DisplayCreateCategory categories={ this.props.categories.categories } />
             case 'edit_category':
