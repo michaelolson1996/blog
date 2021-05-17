@@ -99,6 +99,7 @@ class DisplayEditCategory extends React.Component {
                                 this.props.categories.categories ?
                                     this.props.categories.categories.map((category, i) => {
                                         return <CategoryItem
+                                                    type={"edit_category"}
                                                     editCategory={ this.editCategory }
                                                     key={i}
                                                     src={`data:image/png;base64,${category.image}`}

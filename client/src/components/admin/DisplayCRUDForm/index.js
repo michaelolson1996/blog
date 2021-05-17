@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { postPost } from '../../../redux/posts';
 import Preview from '../Preview';
 
 class DisplayCRUDForm extends React.Component {
@@ -18,6 +19,7 @@ class DisplayCRUDForm extends React.Component {
             },
             categories: [],
             post: {
+                isPublished: false,
                 chosenCategory: '',
                 title: '',
                 subTitle: '',
@@ -65,10 +67,15 @@ class DisplayCRUDForm extends React.Component {
 
     chooseCategory = title => {
         this.setState(oldState => ({
+            ...oldState,
             dropdown: {
                 display: !oldState.dropdown.display
             },
-            chosenCategory: title,
+            post: {
+                ...oldState.post,
+                chosenCategory: title,
+                
+            }
         }));
     }
 
@@ -138,7 +145,7 @@ class DisplayCRUDForm extends React.Component {
                     value: document.getElementById('paragraph-data').value,
                     getValue: function() {
                         return (
-                            <div style={{ width: '100%', height: 'auto', letterSpacing: '.2', marginTop: '20px' }}>
+                            <div style={{ fontSize: '1.6rem', width: '100%', height: 'auto', letterSpacing: '.2', marginTop: '20px' }}>
                                 <p>{this.value}</p>
                             </div>
                         );
@@ -170,7 +177,7 @@ class DisplayCRUDForm extends React.Component {
                             getValue: () => {
                                 return (
                                     <div>
-                                        <img alt="blog-post-img" src={ reader.result } />
+                                        <img style={{ maxWidth: '100%', minWidth: '300px', minHeight: '300px', maxHeight: '500px', width: 'auto' }} alt="blog-post-img" src={ reader.result } />
                                     </div>
                                 )
                             },
@@ -307,8 +314,8 @@ class DisplayCRUDForm extends React.Component {
                     value: document.getElementById('section-title-data').value,
                     getValue: function() {
                         return (
-                            <div>
-                                <h3>{this.value}</h3>
+                            <div style={{ width: '100%' }}>
+                                <h3 style={{fontSize: '2rem'}}>{this.value}</h3>
                             </div>
                         )
                     }}) }>Submit</button>
@@ -472,8 +479,10 @@ class DisplayCRUDForm extends React.Component {
     }
 
     savePost = () => {
-        let postData = JSON.stringify(this.state.post);
-        console.log(postData);
+        // let postData = JSON.stringify(this.state.post);
+        // console.log(postData);
+
+        this.props.postPost(this.state.post)
     }
 
     publishPost = () => {
@@ -496,7 +505,7 @@ class DisplayCRUDForm extends React.Component {
                     </div>
 
                     <div style={{ height: 'auto', display: 'flex', flexDirection: 'column' }}>
-                        <button onClick={ this.displayDropdown } style={{ height: '40px', width: '280px' }}>{ this.state.chosenCategory ? this.state.chosenCategory : 'Pick Category'}</button>
+                        <button onClick={ this.displayDropdown } style={{ height: '40px', width: '280px' }}>{ this.state.post.chosenCategory ? this.state.post.chosenCategory : 'Pick Category'}</button>
                         {
                             this.state.dropdown.display && this.state.categories ?
                                 this.state.categories.map((category, i) => {
@@ -562,4 +571,4 @@ class DisplayCRUDForm extends React.Component {
     }
 }
 
-export default connect(state => state, {  })(DisplayCRUDForm)
+export default connect(state => state, { postPost })(DisplayCRUDForm)

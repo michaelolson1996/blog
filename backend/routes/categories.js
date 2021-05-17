@@ -100,7 +100,7 @@ categoryRouter.route("/new")
         let categoryKey = encodeURIComponent(title) + "/";
 
         s3.headObject({ Key: categoryKey }, (err, data) => {
-            if (!err) 
+            if (!err)
                 return res.send({ success: false, message: "Category already exists" });
             if (err.code !== "NotFound")
                 return res.send({ success: false, message: `Error Creating Category : ${err.message}` });
