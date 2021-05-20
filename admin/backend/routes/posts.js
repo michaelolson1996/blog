@@ -46,7 +46,6 @@ postRouter.route("/:category")
             </body>
         </html>
         `
-
         const htmlParams = {
             Bucket: "michaelolson-blog-bucket",
             Key: postHtmlKey,
@@ -68,6 +67,7 @@ postRouter.route("/:category")
                 width: 100%;
                 height: 100px;
                 background-color: blue;
+                margin-bottom: 40px;
             }
         `
 

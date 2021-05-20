@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap');
+
+#navbar-wrapper {
+    width: 100vw;
+    height: 100px;
+    background-color: #0e2439;
+    display:flex;
+    justify-content: space-between;
+}
+
+#navbar-title-wrapper {
+    height: 100%;
+    display:flex;
+    align-items: center;
+}
+
+#navbar-title {
+    color: #F4FFF8;
+    font-family: 'Barlow Condensed';
+    margin: 0;
+    padding-left: 20px;
+    letter-spacing: 1.2;
+    animation: nav_title 1.2s ease;
+}
+
+#navbar-burger-wrapper {
+    height:100%;
+    width:100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+}
+
+#navbar-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height:48%;
+    width:100px;
+}
+
+.navbar-burger-item {
+    background-color: #F4FFF8;
+    height: 4.9px;
+    width: 50px;
+    border-radius: 40px;
+}
+
+#navbar-menu-list {
+    height:auto;
+    display:flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-menu-list-item {
+    list-style: none;
+    width:100%;
+    height:60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #F4FFF8;
+    background-color: #0e2439;
+    border-top: 1px solid #F4FFF8;
+    font-family: 'Barlow Condensed';
+    font-size: 2rem;
+}
+
+@keyframes nav_title {
+    0% {
+        transform: translateY(-180%);
+    }
+}

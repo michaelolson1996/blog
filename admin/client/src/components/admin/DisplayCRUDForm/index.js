@@ -74,7 +74,6 @@ class DisplayCRUDForm extends React.Component {
             post: {
                 ...oldState.post,
                 chosenCategory: title,
-                
             }
         }));
     }
@@ -149,6 +148,15 @@ class DisplayCRUDForm extends React.Component {
                                 <p>{this.value}</p>
                             </div>
                         );
+                    },
+                    getHtmlValue: function () {
+                        return (
+                            `
+                            <div class="blog-item-paragraph-container">
+                                <p class="blog-item-paragraph-item">${this.value}</p>
+                            </div>
+                            `
+                        );
                     }
                 }) }>Submit
                 </button>
@@ -181,12 +189,14 @@ class DisplayCRUDForm extends React.Component {
                                     </div>
                                 )
                             },
-                            getFinalValue: () => {
+                            getHtmlValue: () => {
                                 return (
-                                    <div>
-                                        
+                                    `
+                                    <div class="blog-item-image-container">
+                                        <img class="blog-item-paragraph-item" alt="blog-post-img" src=${reader.result} />
                                     </div>
-                                )
+                                    `
+                                );
                             }
                         }],
                     }
@@ -228,6 +238,15 @@ class DisplayCRUDForm extends React.Component {
                                         <video autoPlay={true} loop={true} style={{ width: '100%' }} src={ this.value } />
                                     </div>
                                 )
+                            },
+                            getHtmlValue: function() {
+                                return (
+                                    `
+                                    <div class="blog-item-video-container">
+                                        <video class="blog-item-video-item" autoPlay={true} loop={true} src=${this.value} />
+                                    </div>
+                                    `
+                                )
                             }
                         }],
                     }
@@ -257,7 +276,17 @@ class DisplayCRUDForm extends React.Component {
                                 <p>{this.value}</p>
                             </div>
                         )
-                    }}) }>Submit</button>
+                    },
+                    getHtmlValue: function() {
+                        return (
+                            `
+                            <div class="blog-item-code-container">
+                                <p class="blog-item-code-item">${this.value}</p>
+                            </div>
+                            `
+                        )
+                    }      
+                    }) }>Submit</button>
             </>
         );
     }
@@ -285,6 +314,15 @@ class DisplayCRUDForm extends React.Component {
                                     <div>
                                         <img alt="" src={ this.value } />
                                     </div>
+                                )
+                            },
+                            getHtmlValue: function() {
+                                return (
+                                    `
+                                    <div class="blog-item-seperator-container">
+                                        <img alt="seperator" src=${this.value} />
+                                    </div>
+                                    `
                                 )
                             }
                         }],
@@ -318,7 +356,18 @@ class DisplayCRUDForm extends React.Component {
                                 <h3 style={{fontSize: '2rem'}}>{this.value}</h3>
                             </div>
                         )
-                    }}) }>Submit</button>
+                    },
+                    getHtmlValue: function() {
+                        return (
+                            `
+                            <div class="blog-item-section-title-container">
+                                <h3 class="blog-item-section-title-item">${this.value}</h3>
+                            </div>
+                            `
+                        )
+                    }
+                    
+                    }) }>Submit</button>
             </>
         );
     }
@@ -479,14 +528,8 @@ class DisplayCRUDForm extends React.Component {
     }
 
     savePost = () => {
-        // let postData = JSON.stringify(this.state.post);
-        // console.log(postData);
 
         this.props.postPost(this.state.post)
-    }
-
-    publishPost = () => {
-
     }
 
     render() {

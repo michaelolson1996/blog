@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+    web:
+        container_name: blog-client
+        build:
+            context: ./frontend
+        command: npm start
+        ports:
+            - 3001:3001
+        working_dir: /app
