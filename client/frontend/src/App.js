@@ -7,6 +7,7 @@ import {
 
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
+import Categories from './pages/categories';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route path="/categories">
+          <Categories />
         </Route>
       </Switch>
     </Router>
