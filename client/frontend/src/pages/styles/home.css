@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap');
+
+#home-wrapper {
+    font-family: 'Barlow Condensed';
+}
+
+#home-quote-section {
+    height: calc(100vh - 170px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 70px;
+}
+
+figure {
+    margin:0 auto 0 auto;
+    width: 325px;
+}
+
+blockquote {
+    margin:0 0 30px 0;
+    font-size: 1.6rem;
+}
+
+figcaption {
+    font-size: 1.2rem;
+}
+
+#home-info-section {
+    
+}

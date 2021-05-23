@@ -1,11 +1,23 @@
 {
   "name": "michaelolson.blog",
   "version": "1.0.0",
-  "description": "Backend server for users blog posts",
+  "description": "Backend Server for fetching posts for users",
+  "author": "Michael Olson <michaelolson.1996@protonmail.com>",
+  "license": "ISC",
   "main": "server.js",
   "scripts": {
+    "client": "npm start --prefix ../frontend",
+    "server": "nodemon server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Michael Olson <michaelolson.1996@protonmail.com>",
-  "license": "ISC"
+  "dependencies": {
+    "aws-sdk": "^2.911.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^1.19.4"
+  }
 }

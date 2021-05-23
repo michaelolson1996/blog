@@ -7,7 +7,7 @@ import {
 
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
-import Categories from './pages/categories';
+import Categories from './pages/Categories';
 
 function App() {
   return (

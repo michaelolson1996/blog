@@ -12,5 +12,5 @@ app.use("/admin/category", routers.categoryRouter);
 app.use("/admin/post", routers.postRouter);
 
 app.listen(8000, () => {
-    console.log('listening on port 8000')
+    console.log('listening on port 8000');
 });
