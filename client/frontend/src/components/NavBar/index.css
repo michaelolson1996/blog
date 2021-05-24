@@ -6,6 +6,14 @@
     background-color: #0e2439;
     display:flex;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#navbar-wrapper.navbar-small {
+    height: 80px;
+    opacity: 0.75;
 }
 
 #navbar-title-wrapper {
@@ -20,7 +28,7 @@
     margin: 0;
     padding-left: 20px;
     letter-spacing: 1.2;
-    animation: nav_title 1.2s ease;
+    /* animation: nav_title 1.2s ease; */
 }
 
 #navbar-burger-wrapper {
@@ -49,7 +57,8 @@
 }
 
 #navbar-menu-list {
-    position: absolute;
+    position: fixed;
+    top: 100px;
     width:100%;
     height:auto;
     display:flex;
@@ -79,8 +88,8 @@
     width: 100%;
 }
 
-@keyframes nav_title {
+/* @keyframes nav_title {
     0% {
         transform: translateY(-180%);
     }
-}
+} */

@@ -23,16 +23,18 @@ class Categories extends React.Component {
 
     render() {
         return (
-            <div id="category-graph-wrapper">
-                {
-                    this.state.categories.length > 0 ?
-                        this.state.categories.map((category, i) => {
-                            return <Category key={i} category={category} />
-                        })
-                    :
-                        <></>
-                }
-            </div>
+            <>
+                <div id="category-graph-wrapper">
+                    {
+                        this.state.categories.length > 0 ?
+                            this.state.categories.map((category, i) => {
+                                return <Category key={i} category={category} />
+                            })
+                        :
+                            <></>
+                    }
+                </div>
+            </>
         )
     }
 }

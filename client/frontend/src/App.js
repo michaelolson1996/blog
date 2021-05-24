@@ -8,6 +8,7 @@ import {
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Categories from './pages/Categories';
+import CategoryPosts from './pages/CategoryPosts';
 
 function App() {
   return (
@@ -17,8 +18,11 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/categories">
+        <Route exact path="/categories">
           <Categories />
+        </Route>
+        <Route path="/categories/:category">
+          <CategoryPosts />
         </Route>
       </Switch>
     </Router>

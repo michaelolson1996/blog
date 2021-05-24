@@ -41,7 +41,7 @@ categoryRouter.route("/")
                                 return { data, title }
                             })
                         )
-                    }))                    
+                    }))
                 }
 
                 getCategoryData().then(data => {
@@ -53,6 +53,25 @@ categoryRouter.route("/")
                 })
             })
         })
+    })
+
+categoryRouter.route("/posts/:category")
+    .all((req, res) => {
+
+        s3.listObjectsV2({ Prefix: `${req.params.category}/` }).promise()
+            .then(data => {
+                let posts = []
+
+                data.Contents.forEach(content => {
+                    let tempKey = content.Key.split("/");
+                    if (!tempKey[1].includes(".") && !posts.includes(tempKey[1]) && tempKey[1] !== "")
+                        posts.push(tempKey[1])
+                })
+
+                console.log(posts)
+
+                return res.status(200).send({ posts })
+            })
     })
 
 module.exports = categoryRouter;

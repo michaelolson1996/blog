@@ -5,11 +5,11 @@
 }
 
 #home-quote-section {
-    height: calc(100vh - 170px);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 70px;
+    /* padding-bottom: 70px; */
 }
 
 figure {

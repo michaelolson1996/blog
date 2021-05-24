@@ -1,17 +1,17 @@
 #category-graph-wrapper {
     width: 100%;
     height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top:80px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    margin-top:160px;
 }
 
 .category-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 80px;
+    cursor:pointer;
+    margin:0 auto 50px auto;
 }
 
 .category-image {
@@ -22,4 +22,11 @@
 .category-title {
     text-align: center;
     font-family: 'Barlow Condensed';
+    font-size: 1.4rem;
+}
+
+.test {
+    width:100%;
+    height: 1000px;
+    background-color: aquamarine;
 }
