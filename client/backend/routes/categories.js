@@ -68,9 +68,25 @@ categoryRouter.route("/posts/:category")
                         posts.push(tempKey[1])
                 })
 
-                console.log(posts)
-
                 return res.status(200).send({ posts })
+            })
+    })
+
+categoryRouter.route("/:category/:post")
+    .all((req, res) => {
+
+        const category = encodeURIComponent(req.params.category);
+        const post = encodeURIComponent(req.params.post);
+        const key = `${category}/${post}/${post}.js`;
+
+        const params = {
+            Bucket: "michaelolson-blog-bucket",
+            Key: key
+        }
+
+        s3.getObject(params).promise()
+            .then(data => {
+                return res.status(200).send(data.Body.toString())
             })
     })
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import "./styles/categoryPosts.css";
 import { getPosts } from '../redux/posts';
 import { connect } from 'react-redux';
@@ -27,7 +28,11 @@ class CategoryPosts extends React.Component {
                 {
                     this.state.posts.length > 0 ?
                         this.state.posts.map((post, i) => {
-                            return <div key={i}>{post}</div>
+                            return (
+                                <NavLink className="category-post-button" to={`/categories/${window.location.pathname.split("/")[window.location.pathname.split("/").length - 1]}/${post}`} key={i}>
+                                    {decodeURIComponent(post)}
+                                </NavLink>
+                            )
                         })
                     :
                         <></>

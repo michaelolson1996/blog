@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap');
 
+body {
+    font-family: 'Barlow Condensed';
+}
+
 #home-wrapper {
     font-family: 'Barlow Condensed';
 }
@@ -24,8 +28,4 @@ blockquote {
 
 figcaption {
     font-size: 1.2rem;
-}
-
-#home-info-section {
-    
 }

@@ -141,7 +141,11 @@ class DisplayCRUDForm extends React.Component {
                 <textarea id='paragraph-data' cols='60' rows='7' />
                 <button onClick={ (e) => this.submitData(e, {
                     type: 'paragraph', 
-                    value: document.getElementById('paragraph-data').value,
+                    value: `
+                        <div class="blog-item-paragraph-container">
+                            <p class="blog-item-paragraph-item">${document.getElementById('paragraph-data').value}</p>
+                        </div>
+                    `,
                     getValue: function() {
                         return (
                             <div style={{ fontSize: '1.6rem', width: '100%', height: 'auto', letterSpacing: '.2', marginTop: '20px' }}>
@@ -181,7 +185,11 @@ class DisplayCRUDForm extends React.Component {
                         ...oldState.post,
                         content: [...oldState.post.content, {
                             type: 'image',
-                            value: reader.result,
+                            value: `
+                                <div class="blog-item-image-container">
+                                    <img class="blog-item-paragraph-item" alt="blog-post-img" src=${reader.result} />
+                                </div>
+                            `,
                             getValue: () => {
                                 return (
                                     <div>
@@ -231,7 +239,11 @@ class DisplayCRUDForm extends React.Component {
                         ...oldState.post,
                         content: [...oldState.post.content, {
                             type: 'video',
-                            value: reader.result,
+                            value: `
+                                <div class="blog-item-video-container">
+                                    <video class="blog-item-video-item" autoPlay={true} loop={true} src=${reader.result} />
+                                </div>
+                            `,
                             getValue: function() {
                                 return (
                                     <div>
@@ -268,8 +280,12 @@ class DisplayCRUDForm extends React.Component {
                 <h2>Code</h2>
                 <textarea id='code-data' cols='60' rows='7' /> { console.log(document.getElementById('code-data')) }
                 <button onClick={ (e) => this.submitData(e, {
-                    type: 'code', 
-                    value: document.getElementById('code-data').value,
+                    type: 'code',
+                    value: `
+                        <div class="blog-item-code-container">
+                            <p class="blog-item-code-item">${document.getElementById('code-data').value}</p>
+                        </div>
+                    `,
                     getValue: function() {
                         return (
                             <div style={{ backgroundColor: 'rgba(90,90,90,0.2)', padding: '20px' }}>
@@ -308,7 +324,11 @@ class DisplayCRUDForm extends React.Component {
                         ...oldState.post,
                         content: [...oldState.post.content, {
                             type: 'seperator',
-                            value: reader.result,
+                            value:                                     `
+                                <div class="blog-item-seperator-container">
+                                    <img alt="seperator" src=${reader.result} />
+                                </div>
+                            `,
                             getValue: function() {
                                 return (
                                     <div>
