@@ -44,7 +44,6 @@ class DisplayCRUDForm extends React.Component {
     }
 
     addCategoriesToState = async () => {
-
         const categories = await this.props.categories.categories;
 
         if (categories !== undefined) {
@@ -142,8 +141,8 @@ class DisplayCRUDForm extends React.Component {
                 <button onClick={ (e) => this.submitData(e, {
                     type: 'paragraph', 
                     value: `
-                        <div class="blog-item-paragraph-container">
-                            <p class="blog-item-paragraph-item">${document.getElementById('paragraph-data').value}</p>
+                        <div class="post-paragraph-wrapper">
+                            <p class="post-paragraph">${document.getElementById('paragraph-data').value}</p>
                         </div>
                     `,
                     getValue: function() {
@@ -186,8 +185,8 @@ class DisplayCRUDForm extends React.Component {
                         content: [...oldState.post.content, {
                             type: 'image',
                             value: `
-                                <div class="blog-item-image-container">
-                                    <img class="blog-item-paragraph-item" alt="blog-post-img" src=${reader.result} />
+                                <div class="post-image-wrapper">
+                                    <img class="post-image" alt="blog-post-img" src=${reader.result} />
                                 </div>
                             `,
                             getValue: () => {
@@ -240,8 +239,8 @@ class DisplayCRUDForm extends React.Component {
                         content: [...oldState.post.content, {
                             type: 'video',
                             value: `
-                                <div class="blog-item-video-container">
-                                    <video class="blog-item-video-item" autoPlay={true} loop={true} src=${reader.result} />
+                                <div class="post-video-wrapper">
+                                    <video class="post-video" autoPlay={true} loop={true} src=${reader.result} />
                                 </div>
                             `,
                             getValue: function() {
@@ -282,8 +281,8 @@ class DisplayCRUDForm extends React.Component {
                 <button onClick={ (e) => this.submitData(e, {
                     type: 'code',
                     value: `
-                        <div class="blog-item-code-container">
-                            <p class="blog-item-code-item">${document.getElementById('code-data').value}</p>
+                        <div class="post-code-wrapper">
+                            <p class="post-code">${document.getElementById('code-data').value}</p>
                         </div>
                     `,
                     getValue: function() {
@@ -296,8 +295,8 @@ class DisplayCRUDForm extends React.Component {
                     getHtmlValue: function() {
                         return (
                             `
-                            <div class="blog-item-code-container">
-                                <p class="blog-item-code-item">${this.value}</p>
+                            <div className="blog-item-code-container">
+                                <p className="blog-item-code-item">${this.value}</p>
                             </div>
                             `
                         )
@@ -324,9 +323,10 @@ class DisplayCRUDForm extends React.Component {
                         ...oldState.post,
                         content: [...oldState.post.content, {
                             type: 'seperator',
-                            value:                                     `
-                                <div class="blog-item-seperator-container">
-                                    <img alt="seperator" src=${reader.result} />
+                            value:
+                            `
+                                <div class="post-seperator-wrapper">
+                                    <img class="post-seperator" alt="seperator" src=${reader.result} />
                                 </div>
                             `,
                             getValue: function() {
@@ -533,10 +533,6 @@ class DisplayCRUDForm extends React.Component {
         })
     }
 
-    // updateLocalStorage = () => {
-    //     localStorage.setItem('post', JSON.stringify(this.state.post))
-    // }
-
     togglePreview = () => {
 
         this.setState(oldState => ({
@@ -548,7 +544,6 @@ class DisplayCRUDForm extends React.Component {
     }
 
     savePost = () => {
-
         this.props.postPost(this.state.post)
     }
 

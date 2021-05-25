@@ -30,7 +30,17 @@ postRouter.route("/:category")
 
         post.content.map(element => jsxStr += element.value);
 
-        let jsxBody = `<div>${jsxStr}</div>`;
+        let jsxBody = `
+                    <div id="post-wrapper">
+                        <img id="post-header-image" src=${post.headerImage.raw} />
+        
+                        <div id="header-information">
+                            <h2>${post.title}</h2>
+                            <h3>${post.subTitle}</h3>
+                            <p>${new Date().toTimeString()}</p>
+                        </div>
+                        ${jsxStr}
+                    </div>`;
 
         const htmlParams = {
             Bucket: "michaelolson-blog-bucket",

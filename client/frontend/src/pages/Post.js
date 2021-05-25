@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { getPost } from '../redux/posts';
 import { connect } from 'react-redux';
 import parse from 'html-react-parser';
+import "./styles/post.css";
 
 class Post extends React.Component {
     constructor(props) {
