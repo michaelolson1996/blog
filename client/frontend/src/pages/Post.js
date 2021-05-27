@@ -1,9 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { getPost } from '../redux/posts';
 import { connect } from 'react-redux';
 import parse from 'html-react-parser';
 import "./styles/post.css";
+
+import Loading from '../components/Loading';
 
 class Post extends React.Component {
     constructor(props) {
@@ -24,14 +25,14 @@ class Post extends React.Component {
 
     render() {
         return (
-            <div className="category-posts-wrapper">
+            <>
                 {
                     this.state.post.length > 0 ?
                         parse(this.state.post[0])
                     :
-                        <></>
+                        <Loading />
                 }
-            </div>
+            </>
         )
     }
 }

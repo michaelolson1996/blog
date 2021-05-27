@@ -25,7 +25,7 @@ function App() {
         <Route exact path="/categories/:category">
           <CategoryPosts />
         </Route>
-        <Route path="/categories/:category/:post">
+        <Route exact path="/categories/:category/:post">
           <Post />
         </Route>
       </Switch>

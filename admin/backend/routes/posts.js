@@ -30,16 +30,17 @@ postRouter.route("/:category")
 
         post.content.map(element => jsxStr += element.value);
 
+        const d = new Date();
+
         let jsxBody = `
                     <div id="post-wrapper">
-                        <img id="post-header-image" src=${post.headerImage.raw} />
-        
                         <div id="header-information">
-                            <h2>${post.title}</h2>
-                            <h3>${post.subTitle}</h3>
-                            <p>${new Date().toTimeString()}</p>
+                            <h2 id="post-title">${post.title}</h2>
+                            <h3 id="post-subtitle">${post.subTitle}</h3>
+                            <p id="post-date">Created : ${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}</p>
                         </div>
-                        ${jsxStr}
+                        <img id="post-header-image" src=${post.headerImage.raw} />
+                        ${ jsxStr }
                     </div>`;
 
         const htmlParams = {
