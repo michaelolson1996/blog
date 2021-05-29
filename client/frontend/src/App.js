@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Categories from './pages/Categories';
 import CategoryPosts from './pages/CategoryPosts';
 import Post from './pages/Post';
+import Footer from './components/Footer';
 
 function App() {
   return (

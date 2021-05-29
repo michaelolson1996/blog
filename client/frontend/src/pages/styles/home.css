@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap');
 
+html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     font-family: 'Barlow Condensed';
 }
@@ -13,7 +22,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding-bottom: 70px; */
 }
 
 figure {

@@ -369,7 +369,11 @@ class DisplayCRUDForm extends React.Component {
                 <input id='section-title-data' type='text' />
                 <button onClick={ e => this.submitData(e, {
                     type: 'section title', 
-                    value: document.getElementById('section-title-data').value,
+                    value: `
+                    <div class="post-section-title-wrapper">
+                        <h3 class="post-section-title">${document.getElementById('section-title-data').value}</h3>
+                    </div>
+                    `,
                     getValue: function() {
                         return (
                             <div style={{ width: '100%' }}>

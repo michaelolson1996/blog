@@ -35,9 +35,9 @@ postRouter.route("/:category")
         let jsxBody = `
                     <div id="post-wrapper">
                         <div id="header-information">
+                            <SyntaxHighlighter language="javascript" style={docco}>'(num) => num + 1'</SyntaxHighlighter>
                             <h2 id="post-title">${post.title}</h2>
                             <h3 id="post-subtitle">${post.subTitle}</h3>
-                            <p id="post-date">Created : ${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}</p>
                         </div>
                         <img id="post-header-image" src=${post.headerImage.raw} />
                         ${ jsxStr }
