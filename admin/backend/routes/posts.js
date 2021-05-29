@@ -28,7 +28,10 @@ postRouter.route("/:category")
 
         let jsxStr = "";
 
-        post.content.map(element => jsxStr += element.value);
+        post.content.map(element => {
+            console.log(element.value.props.style)
+            jsxStr += element.value
+        });
 
         const d = new Date();
 

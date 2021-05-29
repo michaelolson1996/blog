@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { postPost } from '../../../redux/posts';
 import Preview from '../Preview';
 
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
 class DisplayCRUDForm extends React.Component {
     constructor(props) {
         super(props)
@@ -280,16 +283,10 @@ class DisplayCRUDForm extends React.Component {
                 <textarea id='code-data' cols='60' rows='7' /> { console.log(document.getElementById('code-data')) }
                 <button onClick={ (e) => this.submitData(e, {
                     type: 'code',
-                    value: `
-                        <div class="post-code-wrapper">
-                            <p class="post-code">${document.getElementById('code-data').value}</p>
-                        </div>
-                    `,
+                    value: <SyntaxHighlighter language="javascript" style={docco}>print 'hello'</SyntaxHighlighter>,
                     getValue: function() {
                         return (
-                            <div style={{ backgroundColor: 'rgba(90,90,90,0.2)', padding: '20px' }}>
-                                <p>{this.value}</p>
-                            </div>
+                            <SyntaxHighlighter language="javascript" style={docco}>print 'hello'</SyntaxHighlighter>
                         )
                     },
                     getHtmlValue: function() {
