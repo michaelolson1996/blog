@@ -29,7 +29,6 @@ postRouter.route("/:category")
         let jsxStr = "";
 
         post.content.map(element => {
-            console.log(element.value.props.style)
             jsxStr += element.value
         });
 
@@ -38,7 +37,6 @@ postRouter.route("/:category")
         let jsxBody = `
                     <div id="post-wrapper">
                         <div id="header-information">
-                            <SyntaxHighlighter language="javascript" style={docco}>'(num) => num + 1'</SyntaxHighlighter>
                             <h2 id="post-title">${post.title}</h2>
                             <h3 id="post-subtitle">${post.subTitle}</h3>
                         </div>

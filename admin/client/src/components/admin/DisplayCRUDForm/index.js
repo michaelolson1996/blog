@@ -5,6 +5,8 @@ import Preview from '../Preview';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ReactDOMServer from 'react-dom/server';
 
 class DisplayCRUDForm extends React.Component {
     constructor(props) {
@@ -283,10 +285,10 @@ class DisplayCRUDForm extends React.Component {
                 <textarea id='code-data' cols='60' rows='7' /> { console.log(document.getElementById('code-data')) }
                 <button onClick={ (e) => this.submitData(e, {
                     type: 'code',
-                    value: <SyntaxHighlighter language="javascript" style={docco}>print 'hello'</SyntaxHighlighter>,
+                    value: ReactDOMServer.renderToString(<SyntaxHighlighter language="javascript" style={dark}>{document.getElementById('code-data').value}</SyntaxHighlighter>),
                     getValue: function() {
                         return (
-                            <SyntaxHighlighter language="javascript" style={docco}>print 'hello'</SyntaxHighlighter>
+                            <SyntaxHighlighter language="javascript" style={docco}>{document.getElementById('code-data').value}</SyntaxHighlighter>
                         )
                     },
                     getHtmlValue: function() {
@@ -522,7 +524,7 @@ class DisplayCRUDForm extends React.Component {
                 <div key={i} style={{ width: '100%', display: 'flex', height: 'auto', minHeight: '300px', alignItems: 'center' }}>
                     <div>
                         <h2>{ item.type }</h2>
-                        { item.getValue() }
+                        { item.value }
                     </div>
                     <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'  }}>
                         <button onClick={ e =>  this.moveItemUp(e, i) } style={{ width: '200px' }}>Move Up</button>

@@ -1,7 +1,5 @@
 import React from 'react';
 import { getPost } from '../redux/posts';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { connect } from 'react-redux';
 import parse from 'html-react-parser';
 import "./styles/post.css";
@@ -21,31 +19,8 @@ class Post extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.posts.post && this.props.posts.post.length !== this.state.post.length) {
-
-
-            // let newPost = parse(this.props.posts.post[0])
-
-            // console.log(newPost)
-
-            // newPost[1].props.children.map(item => {
-            //     item.props !== undefined && item.props.children !== null ?
-            //         item.props.children.map(child => {
-            //             typeof(child) === "string" ?
-            //                 <>{item}</>
-            //             :
-            //                 child.props.className === "post-code" ?
-            //                     child.props = <SyntaxHighlighter language="javascript" style={docco}>{child.props}</SyntaxHighlighter>
-            //                 :
-            //                 <>{item}</>
-            //         })
-            //     :
-            //         <></>
-            // })
-
+        if (this.props.posts.post && this.props.posts.post.length !== this.state.post.length)
             this.setState({ post: [parse(this.props.posts.post[0])] })
-        }
-            
     }
 
     render() {
@@ -54,12 +29,7 @@ class Post extends React.Component {
                 {
                     this.state.post.length > 0 ?
                         <>
-                            {
-                                this.state.post[0]
-                            }
-
-
-                            <SyntaxHighlighter language="javascript" style={docco}>print 'hello'</SyntaxHighlighter>
+                            { this.state.post[0] }
                         </>
                     :
                         <Loading />
