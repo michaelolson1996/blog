@@ -6,6 +6,7 @@ import Preview from '../Preview';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import * as List from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactDOMServer from 'react-dom/server';
 
 class DisplayCRUDForm extends React.Component {
@@ -83,7 +84,7 @@ class DisplayCRUDForm extends React.Component {
     }
 
     handlePostTitle = e => {
-        e.preventDefault()
+        e.preventDefault();
 
         this.setState(oldState => ({
             post: {
@@ -144,28 +145,8 @@ class DisplayCRUDForm extends React.Component {
                 <h2>Paragraph</h2>
                 <textarea id='paragraph-data' cols='60' rows='7' />
                 <button onClick={ (e) => this.submitData(e, {
-                    type: 'paragraph', 
-                    value: `
-                        <div class="post-paragraph-wrapper">
-                            <p class="post-paragraph">${document.getElementById('paragraph-data').value}</p>
-                        </div>
-                    `,
-                    getValue: function() {
-                        return (
-                            <div style={{ fontSize: '1.6rem', width: '100%', height: 'auto', letterSpacing: '.2', marginTop: '20px' }}>
-                                <p>{this.value}</p>
-                            </div>
-                        );
-                    },
-                    getHtmlValue: function () {
-                        return (
-                            `
-                            <div class="blog-item-paragraph-container">
-                                <p class="blog-item-paragraph-item">${this.value}</p>
-                            </div>
-                            `
-                        );
-                    }
+                    type: 'paragraph',
+                    value: `<div class="post-paragraph-wrapper"><p class="post-paragraph">${document.getElementById('paragraph-data').value}</p></div>`,
                 }) }>Submit
                 </button>
             </>
@@ -179,6 +160,12 @@ class DisplayCRUDForm extends React.Component {
             reader.readAsDataURL(e.target.files[0]);
 
             reader.onload = () => {
+                const newImage = {
+                    type: 'image',
+                    value: `<div class="post-image-wrapper"><img class="post-image" alt="blog-post-img" src=${reader.result} /></div>`,
+                    getPreview: () => { return this.value }
+                };
+
                 this.setState(oldState => ({
                     ...oldState,
                     blogItemForm: {
@@ -187,30 +174,7 @@ class DisplayCRUDForm extends React.Component {
                     },
                     post: {
                         ...oldState.post,
-                        content: [...oldState.post.content, {
-                            type: 'image',
-                            value: `
-                                <div class="post-image-wrapper">
-                                    <img class="post-image" alt="blog-post-img" src=${reader.result} />
-                                </div>
-                            `,
-                            getValue: () => {
-                                return (
-                                    <div>
-                                        <img style={{ maxWidth: '100%', minWidth: '300px', minHeight: '300px', maxHeight: '500px', width: 'auto' }} alt="blog-post-img" src={ reader.result } />
-                                    </div>
-                                )
-                            },
-                            getHtmlValue: () => {
-                                return (
-                                    `
-                                    <div class="blog-item-image-container">
-                                        <img class="blog-item-paragraph-item" alt="blog-post-img" src=${reader.result} />
-                                    </div>
-                                    `
-                                );
-                            }
-                        }],
+                        content: [...oldState.post.content, newImage],
                     }
                 }));
             }
@@ -233,6 +197,13 @@ class DisplayCRUDForm extends React.Component {
             reader.readAsDataURL(e.target.files[0]);
 
             reader.onload = () => {
+
+                const newVideo = {
+                    type: 'video',
+                    value: `<div class="post-video-wrapper"><video class="post-video" autoPlay={true} loop={true} src=${reader.result} /></div>`,
+                    getPreview: () => { return this.value }
+                };
+
                 this.setState(oldState => ({
                     ...oldState,
                     blogItemForm: {
@@ -241,30 +212,7 @@ class DisplayCRUDForm extends React.Component {
                     },
                     post: {
                         ...oldState.post,
-                        content: [...oldState.post.content, {
-                            type: 'video',
-                            value: `
-                                <div class="post-video-wrapper">
-                                    <video class="post-video" autoPlay={true} loop={true} src=${reader.result} />
-                                </div>
-                            `,
-                            getValue: function() {
-                                return (
-                                    <div>
-                                        <video autoPlay={true} loop={true} style={{ width: '100%' }} src={ this.value } />
-                                    </div>
-                                )
-                            },
-                            getHtmlValue: function() {
-                                return (
-                                    `
-                                    <div class="blog-item-video-container">
-                                        <video class="blog-item-video-item" autoPlay={true} loop={true} src=${this.value} />
-                                    </div>
-                                    `
-                                )
-                            }
-                        }],
+                        content: [...oldState.post.content, newVideo],
                     }
                 }));
             }
@@ -279,27 +227,23 @@ class DisplayCRUDForm extends React.Component {
     }
 
     addCode = () => {
+
+        
+        
         return (
             <>
                 <h2>Code</h2>
-                <textarea id='code-data' cols='60' rows='7' /> { console.log(document.getElementById('code-data')) }
+                <div style={{ display: 'flex', width: '100%', height: 'auto', flexWrap: 'wrap' }}>
+                    {
+                        Object.entries(List).map(item => {
+                            return <button>{item[0]}</button>
+                        })
+                    }
+                </div>
+                <textarea id='code-data' cols='60' rows='7' />
                 <button onClick={ (e) => this.submitData(e, {
                     type: 'code',
-                    value: ReactDOMServer.renderToString(<SyntaxHighlighter language="javascript" style={dark}>{document.getElementById('code-data').value}</SyntaxHighlighter>),
-                    getValue: function() {
-                        return (
-                            <SyntaxHighlighter language="javascript" style={docco}>{document.getElementById('code-data').value}</SyntaxHighlighter>
-                        )
-                    },
-                    getHtmlValue: function() {
-                        return (
-                            `
-                            <div className="blog-item-code-container">
-                                <p className="blog-item-code-item">${this.value}</p>
-                            </div>
-                            `
-                        )
-                    }      
+                    value: ReactDOMServer.renderToString(<SyntaxHighlighter language="javascript" style={dark}>{document.getElementById('code-data').value}</SyntaxHighlighter>),    
                     }) }>Submit</button>
             </>
         );
@@ -328,22 +272,6 @@ class DisplayCRUDForm extends React.Component {
                                     <img class="post-seperator" alt="seperator" src=${reader.result} />
                                 </div>
                             `,
-                            getValue: function() {
-                                return (
-                                    <div>
-                                        <img alt="" src={ this.value } />
-                                    </div>
-                                )
-                            },
-                            getHtmlValue: function() {
-                                return (
-                                    `
-                                    <div class="blog-item-seperator-container">
-                                        <img alt="seperator" src=${this.value} />
-                                    </div>
-                                    `
-                                )
-                            }
                         }],
                     }
                 }));
@@ -373,23 +301,7 @@ class DisplayCRUDForm extends React.Component {
                         <h3 class="post-section-title">${document.getElementById('section-title-data').value}</h3>
                     </div>
                     `,
-                    getValue: function() {
-                        return (
-                            <div style={{ width: '100%' }}>
-                                <h3 style={{fontSize: '2rem'}}>{this.value}</h3>
-                            </div>
-                        )
-                    },
-                    getHtmlValue: function() {
-                        return (
-                            `
-                            <div class="blog-item-section-title-container">
-                                <h3 class="blog-item-section-title-item">${this.value}</h3>
-                            </div>
-                            `
-                        )
-                    }
-                    
+
                     }) }>Submit</button>
             </>
         );

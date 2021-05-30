@@ -39,6 +39,7 @@ postRouter.route("/:category")
                         <div id="header-information">
                             <h2 id="post-title">${post.title}</h2>
                             <h3 id="post-subtitle">${post.subTitle}</h3>
+                            <p id='post-date'>${d.getMonth()}/${d.getDay() + 1}/${d.getFullYear()}</p>
                         </div>
                         <img id="post-header-image" src=${post.headerImage.raw} />
                         ${ jsxStr }
