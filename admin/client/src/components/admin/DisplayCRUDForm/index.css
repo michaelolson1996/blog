@@ -1,0 +1,24 @@
+#new-post-wrapper {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+#post-header-info-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+#header-info-inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 150px
+}
+
+.header-info-inputs {
+    height: 40px;
+    margin-left: 20px;
+}

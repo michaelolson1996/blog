@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { postPost } from '../../../redux/posts';
 import Preview from '../Preview';
-
+import parse from 'html-react-parser';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import * as List from 'react-syntax-highlighter/dist/esm/styles/prism';
+import * as CodeStyles from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactDOMServer from 'react-dom/server';
+import "./index.css";
 
 class DisplayCRUDForm extends React.Component {
     constructor(props) {
@@ -36,8 +35,8 @@ class DisplayCRUDForm extends React.Component {
                 },
                 content: [],
             },
-        }
-    }
+        };
+    };
 
     componentDidMount() {
         this.addCategoriesToState();
@@ -59,7 +58,7 @@ class DisplayCRUDForm extends React.Component {
             }));
         }
     }
-    
+
     displayDropdown = e => {
         e.preventDefault();
 
@@ -228,23 +227,36 @@ class DisplayCRUDForm extends React.Component {
 
     addCode = () => {
 
-        
+        const newCode = {
+            type: 'code',
+            language: '',
+            style: null,
+            value: '',
+            getPreview: () => {return <>{this.value}</>}
+        }
         
         return (
             <>
                 <h2>Code</h2>
                 <div style={{ display: 'flex', width: '100%', height: 'auto', flexWrap: 'wrap' }}>
                     {
-                        Object.entries(List).map(item => {
-                            return <button>{item[0]}</button>
+                        SyntaxHighlighter.supportedLanguages.map((item, i) => {
+                            return <button key={i} onClick={ () => { newCode.language = item } }>{item}</button>
+                        })
+                    }
+                    {
+                        Object.entries(CodeStyles).map((item, i) => { 
+                            return <button key={i} onClick={ () => { newCode.style = item[1] } }>{item[0]}</button>
                         })
                     }
                 </div>
                 <textarea id='code-data' cols='60' rows='7' />
-                <button onClick={ (e) => this.submitData(e, {
-                    type: 'code',
-                    value: ReactDOMServer.renderToString(<SyntaxHighlighter language="javascript" style={dark}>{document.getElementById('code-data').value}</SyntaxHighlighter>),    
-                    }) }>Submit</button>
+                <button onClick={ (e) => {
+                    newCode.value = ReactDOMServer.renderToString(
+                        <SyntaxHighlighter language={newCode.language} style={newCode.style}>{document.getElementById('code-data').value}</SyntaxHighlighter>
+                    );
+                    this.submitData(e, newCode)
+                } }>Submit</button>
             </>
         );
     }
@@ -436,7 +448,7 @@ class DisplayCRUDForm extends React.Component {
                 <div key={i} style={{ width: '100%', display: 'flex', height: 'auto', minHeight: '300px', alignItems: 'center' }}>
                     <div>
                         <h2>{ item.type }</h2>
-                        { item.value }
+                        { parse(item.value) }
                     </div>
                     <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'  }}>
                         <button onClick={ e =>  this.moveItemUp(e, i) } style={{ width: '200px' }}>Move Up</button>
@@ -464,19 +476,18 @@ class DisplayCRUDForm extends React.Component {
 
     render() {
         return (
-            <div style={{ width: '100%', height: '100%', overflowY: 'auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '30px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'space-around', height: '150px' }}>
+            <div id="new-post-wrapper">
+                <div id="post-header-info-wrapper">
+                    <div id="header-info-inputs-wrapper">
                         <label>
                             Post Title
-                            <input style={{ height: '40px', marginLeft: '20px' }} onChange={ this.handlePostTitle } type='text' placeholder='title' />
+                            <input className="header-info-inputs" onChange={ this.handlePostTitle } type='text' placeholder='title' />
                         </label>
                         <label>
                             Post SubTitle
-                            <input style={{ height: '40px', marginLeft: '20px' }} onChange={ this.handlePostSubtitle } type='text' placeholder='subtitle' />
+                            <input className="header-info-inputs" onChange={ this.handlePostSubtitle } type='text' placeholder='subtitle' />
                         </label>
                     </div>
-
                     <div style={{ height: 'auto', display: 'flex', flexDirection: 'column' }}>
                         <button onClick={ this.displayDropdown } style={{ height: '40px', width: '280px' }}>{ this.state.post.chosenCategory ? this.state.post.chosenCategory : 'Pick Category'}</button>
                         {

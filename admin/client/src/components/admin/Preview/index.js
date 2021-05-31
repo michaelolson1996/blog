@@ -1,23 +1,22 @@
 import React from 'react';
+import parse from 'html-react-parser';
+import "./index.css";
 
 export default function Preview(props) {
-
     const post = props.post;
-
+    const d = new Date();
+    
     return (
-        <div style={{ position: 'absolute', top: '0', left: '0', height: '100vh', width: '100vw', backgroundColor: 'white', overflowX: 'hidden' }}>
-            <div style={{ width: '100vw', height: '100px', backgroundColor: 'blue', marginBottom: '40px' }}>
-                <div style={{ position: 'absolute', top: '20px', right: '20px', color: 'white' }} onClick={ props.togglePreview }>hello</div>
-
-            </div>
-            <div style={{ maxWidth: '1000px', width: '90%', minWidth: '300px', margin: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <img alt="" src={ post.headerImage.raw } style={{ width:'100%' }} />
-                <div style={{width: '100%'}}>
-                    <h1 style={{ textAlign: 'left', fontSize: '2.5rem' }}>{ post.title }</h1>
-                    <h2 style={{ textAlign: 'left', fontSize: '2.2rem' }}>{ post.subTitle }</h2>
+        <div id="preview-wrapper">
+            <div id="post-wrapper">
+                <div id="header-information">
+                    <h2 id="post-title">{post.title}</h2>
+                    <h3 id="post-subtitle">{post.subTitle}</h3>
+                    <p id='post-date'>{d.getMonth()}/{d.getDay() + 1}/{d.getFullYear()}</p>
                 </div>
-                { post.content.map(item => item.getValue()) }
+                <img id="post-header-image" src={post.headerImage.raw} />
+                { post.content.map(item => parse(item.value)) }
             </div>
         </div>
     );
-}
+};

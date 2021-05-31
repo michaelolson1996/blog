@@ -1,14 +1,15 @@
-.navbar-body {
+#navbar-body {
     height: auto;
     width: 100vw;
     display: flex;
     justify-content: space-between;
-
+    background-color: #0e2439;
 }
 
-.navbar-title {
+#navbar-title {
     font-size: 2rem;
     padding-left: 20px;
+    color: white;
 }
 
 .navbar-list-container {
@@ -17,10 +18,16 @@
     padding-right: 20px;
 }
 
-.navbar-list-item {
+.navbar-list-container, li {
     padding: 10px;
     width: auto;
     list-style: none;
+    color: white;
+}
+
+.navbar-list-item:link, .navbar-list-item:visited, .navbar-list-item:hover, .navbar-list-item:active {
+    color: white;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 600px) {
