@@ -18,6 +18,7 @@ class DisplayCRUDForm extends React.Component {
             preview: {
                 display: false,
             },
+            displayAddOptions: false,
             blogItemForm: {
                 display: false,
                 blogItem: '',
@@ -470,6 +471,13 @@ class DisplayCRUDForm extends React.Component {
         }))
     }
 
+    toggleAddComponent = () => {
+        this.setState(oldState => ({
+            ...oldState,
+            displayAddOptions: !oldState.displayAddOptions
+        }))
+    }
+
     savePost = () => {
         this.props.postPost(this.state.post)
     }
@@ -478,24 +486,35 @@ class DisplayCRUDForm extends React.Component {
         return (
             <div id="new-post-wrapper">
                 <div id="post-header-info-wrapper">
+                    <div id="header-image-wrapper">
+                        <input onChange={ this.handleHeaderImage } type='file' accept='image/*' id="header-browse-button" />
+                        <label htmlFor='header-browse-button'>
+                            {
+                                this.state.post.headerImage.preview ?
+                                    <img style={{ width: '100%' }} src={this.state.post.headerImage.preview} alt="dummy" width="300" height="300" />
+                                :
+                                    <div style={{ width: '100%' }}></div>
+                            }
+                        </label>
+                    </div>
                     <div id="header-info-inputs-wrapper">
                         <label>
                             Post Title
-                            <input className="header-info-inputs" onChange={ this.handlePostTitle } type='text' placeholder='title' />
+                            <input className="header-info-inputs" onChange={ this.handlePostTitle } type='text' />
                         </label>
                         <label>
                             Post SubTitle
-                            <input className="header-info-inputs" onChange={ this.handlePostSubtitle } type='text' placeholder='subtitle' />
+                            <input className="header-info-inputs" onChange={ this.handlePostSubtitle } type='text' />
                         </label>
                     </div>
-                    <div style={{ height: 'auto', display: 'flex', flexDirection: 'column' }}>
-                        <button onClick={ this.displayDropdown } style={{ height: '40px', width: '280px' }}>{ this.state.post.chosenCategory ? this.state.post.chosenCategory : 'Pick Category'}</button>
+                    <div id="category-dropdown-wrapper">
+                        <button onClick={ this.displayDropdown } id="category-dropdown-button">{ this.state.post.chosenCategory ? this.state.post.chosenCategory : 'Pick Category'}</button>
                         {
                             this.state.dropdown.display && this.state.categories ?
                                 this.state.categories.map((category, i) => {
                                     return (
-                                        <button onClick={ () => this.chooseCategory(category.title) } key={i} style={{ display: 'flex', alignItems: 'center', height: '40px', width: '280px', position: 'relative' }}>
-                                            <img style={{ height: '30px', width: '30px', marginRight: '30px' }} alt={ category.title } src={ `data:image/png;base64,${ category.image }` } />
+                                        <button onClick={ () => this.chooseCategory(category.title) } key={i} className="category-dropdown-buttons">
+                                            <img className="category-dropdown-images" alt={ category.title } src={ `data:image/png;base64,${ category.image }` } />
                                             <p>{ category.title }</p>
                                         </button>
                                     )
@@ -505,17 +524,7 @@ class DisplayCRUDForm extends React.Component {
                         }
                     </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '30px 0 30px 0' }}>
-                    <label htmlFor='header-image'>
-                        {
-                            this.state.post.headerImage.preview ?
-                                <img style={{ minHeight: '400px', width: '90%' }} src={this.state.post.headerImage.preview} alt="dummy" width="300" height="300" />
-                            :
-                                <div style={{ minHeight: '400px', width: '90%' }}></div>
-                        }
-                    </label>
-                    <input onChange={ this.handleHeaderImage } type='file' id='header-image' accept='image/*' style={{ marginTop: '30px' }} />
-                </div>
+
                 {
                     this.state.blogItemForm.display ?
                         <>
@@ -531,9 +540,19 @@ class DisplayCRUDForm extends React.Component {
                 }
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-around' }}>
                     {
-                        ["Section Title", "Paragraph", "Image", "Code", "Video", "Seperator"].map((buttonName, i) => {
-                            return <button key={i} onClick={ this.displayBlogItemForm }>{ buttonName }</button>
-                        })
+                        this.state.displayAddOptions ?
+                            <>
+                                <div onClick={ this.toggleAddComponent } id="add-options-overlay"></div>
+                                <div id="add-options-wrapper">
+                                    {
+                                        ["Section Title", "Paragraph", "Image", "Code", "Video", "Seperator"].map((buttonName, i) => {
+                                            return <button className="add-options-buttons" key={i} onClick={ this.displayBlogItemForm }>{ buttonName }</button>
+                                        })
+                                    }
+                                </div>
+                            </>
+                        :
+                        <></>
                     }
                 </div>
                 <div className='blog-container' style={{ width: '100%' }}>
@@ -541,9 +560,13 @@ class DisplayCRUDForm extends React.Component {
                         this.displayContent()
                     }
                 </div>
-                <div onClick={ this.togglePreview }>Preview</div>
-                <div onClick={ this.savePost }>Save</div>
-                <div onClick={ this.publishPost }>Publish</div>
+                <div id="post-options-wrap">
+                    <div class="post-options-buttons" onClick={ this.toggleAddComponent }>Add</div>
+                    <div class="post-options-buttons" onClick={ this.togglePreview }>Preview</div>
+                    <div class="post-options-buttons" onClick={ this.savePost }>Save</div>
+                    <div class="post-options-buttons" onClick={ this.publishPost }>Publish</div>
+                </div>
+
                 {
                     this.state.preview.display ?
                         <Preview togglePreview={ this.togglePreview }  post={ this.state.post } />
