@@ -1,3 +1,7 @@
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,19 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#display-options-dropdown {
+  position:absolute;
+  top:0;
+  left:0;
+  height:92px;
+  width:400px;
+  cursor:pointer;
+}
+
+@media only screen and (max-width: 400px) {
+  #display-options-dropdown {
+    width:300px
+  }
 }

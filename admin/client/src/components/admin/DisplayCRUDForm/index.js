@@ -486,6 +486,10 @@ class DisplayCRUDForm extends React.Component {
         return (
             <div id="new-post-wrapper">
                 <div id="post-header-info-wrapper">
+                    <div id="header-info-inputs-wrapper">
+                        <input className="header-info-inputs" onChange={ this.handlePostTitle } type='text' placeholder="Title" />
+                        <input className="header-info-inputs" onChange={ this.handlePostSubtitle } type='text' placeholder="SubTitle" />
+                    </div>
                     <div id="header-image-wrapper">
                         <input onChange={ this.handleHeaderImage } type='file' accept='image/*' id="header-browse-button" />
                         <label htmlFor='header-browse-button'>
@@ -495,16 +499,6 @@ class DisplayCRUDForm extends React.Component {
                                 :
                                     <div style={{ width: '100%' }}></div>
                             }
-                        </label>
-                    </div>
-                    <div id="header-info-inputs-wrapper">
-                        <label>
-                            Post Title
-                            <input className="header-info-inputs" onChange={ this.handlePostTitle } type='text' />
-                        </label>
-                        <label>
-                            Post SubTitle
-                            <input className="header-info-inputs" onChange={ this.handlePostSubtitle } type='text' />
                         </label>
                     </div>
                     <div id="category-dropdown-wrapper">
@@ -524,16 +518,15 @@ class DisplayCRUDForm extends React.Component {
                         }
                     </div>
                 </div>
-
                 {
                     this.state.blogItemForm.display ?
                         <>
-                            <div id='blog-item-form' style={{ height: '90vh', width: '90vw', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', backgroundColor: 'white', border: '1px solid black', zIndex: 4 }}>
+                            <div id='blog-item-form'>
                                 {
                                     this.setFormItem()
                                 }
                             </div>
-                            <div onClick={ this.toggleFormDisplay } id='blog-item-form-bg' style={{ height: '100vh', width: '100vw', position: 'absolute', top: '0', left: '0', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 3 }}></div>
+                            <div onClick={ this.toggleFormDisplay } id='blog-item-form-bg'></div>
                         </>
                     :
                         <></>
@@ -566,7 +559,6 @@ class DisplayCRUDForm extends React.Component {
                     <div class="post-options-buttons" onClick={ this.savePost }>Save</div>
                     <div class="post-options-buttons" onClick={ this.publishPost }>Publish</div>
                 </div>
-
                 {
                     this.state.preview.display ?
                         <Preview togglePreview={ this.togglePreview }  post={ this.state.post } />

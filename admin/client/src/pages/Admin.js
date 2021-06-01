@@ -54,7 +54,7 @@ class Admin extends React.Component {
     render() {
         return (
             <>
-                <div style={{ position: 'absolute', top: 0, left: 0, height: '80px', width: '400px' }} onClick={ () => { this.toggleDisplayOptions() } }></div>
+                <div id="display-options-dropdown" onClick={ () => { this.toggleDisplayOptions() } }></div>
                 {
                     this.state.displayOptions ?
                         <EditButtons toggleDisplayOptions={this.toggleDisplayOptions} setOperation={ this.setOperation } />
