@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { postPost } from '../../../redux/posts';
 import Preview from '../Preview';
+import NewCode from './NewCode';
+import NewImage from './NewImage';
 import parse from 'html-react-parser';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import * as CodeStyles from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -22,10 +24,6 @@ class DisplayCRUDForm extends React.Component {
             blogItemForm: {
                 display: false,
                 blogItem: '',
-            },
-            codeOptionsDisplay: {
-                languages: false,
-                styles: false,
             },
             categories: [],
             post: {
@@ -158,41 +156,21 @@ class DisplayCRUDForm extends React.Component {
     }
 
     addImage = () => {
+        return <NewImage addImageToState={this.addImageToState} />
+    }
 
-        const extractImageData = e => {
-            let reader = new FileReader();
-            reader.readAsDataURL(e.target.files[0]);
-
-            reader.onload = () => {
-                const newImage = {
-                    type: 'image',
-                    value: `<div class="post-image-wrapper"><img class="post-image" alt="blog-post-img" src=${reader.result} /></div>`,
-                    getPreview: () => { return this.value }
-                };
-
-                this.setState(oldState => ({
-                    ...oldState,
-                    blogItemForm: {
-                        ...oldState.blogItemForm,
-                        display: !oldState.blogItemForm.display
-                    },
-                    post: {
-                        ...oldState.post,
-                        content: [...oldState.post.content, newImage],
-                    }
-                }));
+    addImageToState = (newImage) => {
+        this.setState(oldState => ({
+            ...oldState,
+            blogItemForm: {
+                ...oldState.blogItemForm,
+                display: !oldState.blogItemForm.display
+            },
+            post: {
+                ...oldState.post,
+                content: [...oldState.post.content, newImage],
             }
-        }
-
-        return (
-            <>
-                <h2>Image</h2>
-                <input type='file' 
-                       accept='image/*'
-                       id='image-data'
-                       onChange={ extractImageData } />
-            </>
-        );
+        }));
     }
 
     addVideo = () => {
@@ -231,66 +209,7 @@ class DisplayCRUDForm extends React.Component {
     }
 
     addCode = () => {
-
-        const newCode = {
-            type: 'code',
-            language: '',
-            style: null,
-            value: '',
-            getPreview: () => {return <>{this.value}</>}
-        }
-
-        const languages = <div id="code-language-wrapper">
-            {
-                SyntaxHighlighter.supportedLanguages.map((item, i) => {
-                    return <button className="code-language-buttons" key={i} onClick={ () => { 
-                        newCode.language = item;
-                        // this.toggleCodeLanguages();
-                    } }>{item}</button>
-                })
-            }
-        </div>;
-
-        const styles = <div id="code-style-wrapper">
-            {
-                Object.entries(CodeStyles).map((item, i) => { 
-                    return <button className="code-language-buttons" key={i} onClick={ () => { newCode.style = item[1] } }>{item[0]}</button>
-                })
-            }
-        </div>;
-        
-        return (
-            <>
-                <h2>Code</h2>
-                {console.log(this.state)}
-                <div id="code-wrapper">
-                    <button onClick={ this.toggleCodeLanguages } id="code-language-button" className="code-button">Language</button>
-                    <button onClick={ this.toggleCodeStyles } id="code-style-button" className="code-button">Style</button>
-                    {
-                        this.state.codeOptionsDisplay.languages ?
-                            languages
-                        :
-                            this.state.codeOptionsDisplay.styles ?
-                                styles
-                            :
-                                <div style={{ height:'500px',width:'100%' }}>
-                                    <p>{newCode.language}</p>
-                                    <p>{newCode.style}</p>
-                                </div>
-                    }
-                    {
-
-                    }
-                </div>
-                <textarea id='code-data' cols='60' rows='7' />
-                <button onClick={ (e) => {
-                    newCode.value = ReactDOMServer.renderToString(
-                        <SyntaxHighlighter language={newCode.language} style={newCode.style}>{document.getElementById('code-data').value}</SyntaxHighlighter>
-                    );
-                    this.submitData(e, newCode)
-                } }>Submit</button>
-            </>
-        );
+        return <><NewCode submitData={this.submitData} /></>
     }
 
     addSeperator = () => {
@@ -498,26 +417,6 @@ class DisplayCRUDForm extends React.Component {
             ...oldState,
             preview: {
                 display: !oldState.preview.display,
-            },
-        }))
-    }
-
-    toggleCodeLanguages = () => {
-        this.setState(oldState => ({
-            ...oldState,
-            codeOptionsDisplay: {
-                languages: !oldState.codeOptionsDisplay.languages,
-                styles: oldState.codeOptionsDisplay.styles,
-            },
-        }))
-    }
-
-    toggleCodeStyles = () => {
-        this.setState(oldState => ({
-            ...oldState,
-            codeOptionsDisplay: {
-                languages: oldState.codeOptionsDisplay.languages,
-                styles: !oldState.codeOptionsDisplay.styles,
             },
         }))
     }
