@@ -11,7 +11,8 @@ class DisplayEditCategory extends React.Component {
             title: '',
             image: '',
             newTitle: '',
-            newImage: ''
+            newImage: '',
+            newImageTitle: ''
         }
     }
 
@@ -49,23 +50,25 @@ class DisplayEditCategory extends React.Component {
         reader.onload = () => {
             this.setState(oldState => ({
                 ...oldState,
-                newImage: reader.result
+                newImage: reader.result,
+                newImageTitle: e.target.files[0].name
             }))
         }
     }
 
     updateCategory = () => {
-        if (this.state.title === this.state.newTitle && this.state.image === this.state.newImage)
-            return alert("items have not changed")
+        // if (this.state.title === this.state.newTitle && this.state.image === this.state.newImage)
+        //     return alert("items have not changed")
 
-        if (this.state.newTitle.length === 0 || this.state.newImage.length === 0)
-            return alert("title and image must be not empty")
-            
+        // if (this.state.newTitle.length === 0 || this.state.newImage.length === 0)
+        //     return alert("title and image must be not empty")
+
         this.props.editCategory({ 
             title: this.state.title,
             newTitle: this.state.newTitle,
             image: this.state.image,
-            newImage: this.state.newImage
+            newImage: this.state.newImage,
+            newImageTitle: this.state.newImageTitle
         });
 
         this.displayCategories();

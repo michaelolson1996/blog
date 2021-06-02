@@ -61,31 +61,74 @@ categoryRouter.route("/edit")
         if (req.body.title === req.body.newTitle && req.body.image === req.body.newImage)
             return res.send({ success: false, message: 'titles and images are the same' })
 
-        if (req.body.title !== req.body.newTitle) {
-
-            async function emptyS3Directory() {
-                const params = {
-                    Bucket: 'michaelolson-blog-bucket',
-                    Prefix: `${ req.body.title }`
-                }
-    
-                const listedObjects = await s3.listObjectsV2(params).promise();
-                const old_keys = []
-
-                listedObjects.Contents.forEach(item => {
-                    old_keys.push(item.Key)
-                })
-    
-                new_keys = old_keys.map(key => {
-                    split_key = key.split("/");
-                    split_key.splice(0, 1, req.body.newTitle);
-                    return split_key.join("/");
-                })
+        async function emptyS3Directory() {
+            const params = {
+                Bucket: 'michaelolson-blog-bucket',
+                Prefix: `${ encodeURIComponent(req.body.title) }`
             }
 
-            emptyS3Directory();
+            let listedObjects = await s3.listObjectsV2(params).promise();
+            let old_keys = [];
 
+            listedObjects.Contents.forEach(item => {
+                old_keys.push(item.Key)
+            })
+
+            old_keys.forEach(key => {
+                let splitKey = key.split("/");
+                splitKey.splice(0,1,encodeURIComponent(req.body.newTitle));
+                let newKey = splitKey.join("/");
+
+                if (!key.includes("category_image")) {
+                    let params = {
+                        Bucket: "michaelolson-blog-bucket",
+                        Key: key
+                    }
+
+                    s3.getObject(params).promise()
+                    .then(data => {
+
+                        let newParams = {
+                            Bucket: "michaelolson-blog-bucket",
+                            Key: newKey,
+                            Body: data.Body.toString()
+                        }
+
+                        s3.putObject(newParams, (err, data) => {
+                            if (err)
+                                console.log(err)
+                        })
+                    })
+                } else {
+                    let newParams = {
+                        Bucket: "michaelolson-blog-bucket",
+                        Key: newKey,
+                        Body: Buffer.from(req.body.newImage.replace(/^data:image\/\w+;base64,/, ""),'base64')
+                    }
+
+                    s3.putObject(newParams, (err, data) => {
+                        if (err)
+                            console.log(err)
+                    })
+                }
+            });
+
+            var deleteParam = {
+                Bucket: 'michaelolson-blog-bucket',
+                Delete: {
+                    Objects: old_keys.map(key => {return { Key: key } })
+                }
+            };
+
+            console.log(deleteParam)
+
+            s3.deleteObjects(deleteParam, function(err, data) {
+                if (err) console.log(err, err.stack);
+                else console.log('delete', data);
+            });
         }
+
+        emptyS3Directory();
 
         return res.send({ success: true, message: 'moved category to new title' })
     })

@@ -9,7 +9,7 @@ export default function CategoryItem(props) {
             :
                 () => props.retrievePosts(props.title)
         } 
-                 style={{ margin: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center',border: '1px solid black', cursor: 'pointer' }} >
+                 style={{ margin: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }} >
                 <img alt={ props.title } src={props.src} style={{ height: '200px', width: '200px' }}></img>
                 <h3>{props.title}</h3>
             </div>
