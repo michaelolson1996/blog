@@ -80,7 +80,7 @@
 }
 
 #add-options-overlay {
-    position: absolute;
+    position: fixed;
     top:0;
     left:0;
     height:100vh;
@@ -94,7 +94,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -113,35 +113,28 @@
 }
 
 .add-options-buttons:hover {
-    /* opacity: 0.5; */
     border:2px solid white;
 }
 
 #post-options-wrap {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top:50%;
-    right: -220px;
-    transform: translateY(-50%);
-    width: 240px;
+    position: fixed;
+    bottom:20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
 }
 
 .post-options-buttons {
-    margin: 20px;
     cursor: pointer;
     background-color: #0e2439;
     color:white;
     padding:20px;
+    margin-left:20px;
     text-align: center;
-    width:90%
-}
-
-.post-options-buttons:hover {
-    padding-right:200px;
-    text-align: left;
+    width:60px;
 }
 
 #blog-item-form {
@@ -165,6 +158,51 @@
     left:0;
     background-color: rgba(0,0,0,0.5);
     z-index: 3;
+}
+
+#code-wrapper {
+    display:flex;
+    justify-content: center;
+    width:100%;
+    height:auto;
+    flex-wrap: wrap;
+}
+
+.code-button {
+    padding:20px;
+    background-color: #0e2439;
+    color:white;
+    border: none;
+    width: 260px;
+    margin: 0 40px 0 40px;
+}
+
+#code-language-wrapper {
+    height:500px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    overflow-y: scroll;
+    background-color: white;
+    margin:auto
+}
+
+#code-style-wrapper {
+    height:500px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.code-language-buttons {
+    width: 300px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #0e2439;
+    color: white;
+    border: none;
 }
 
 /* style={{ height: '90vh', width: '90vw', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', border: '1px solid black', zIndex: 4 }} */

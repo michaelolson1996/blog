@@ -23,6 +23,10 @@ class DisplayCRUDForm extends React.Component {
                 display: false,
                 blogItem: '',
             },
+            codeOptionsDisplay: {
+                languages: false,
+                styles: false,
+            },
             categories: [],
             post: {
                 isPublished: false,
@@ -235,20 +239,47 @@ class DisplayCRUDForm extends React.Component {
             value: '',
             getPreview: () => {return <>{this.value}</>}
         }
+
+        const languages = <div id="code-language-wrapper">
+            {
+                SyntaxHighlighter.supportedLanguages.map((item, i) => {
+                    return <button className="code-language-buttons" key={i} onClick={ () => { 
+                        newCode.language = item;
+                        // this.toggleCodeLanguages();
+                    } }>{item}</button>
+                })
+            }
+        </div>;
+
+        const styles = <div id="code-style-wrapper">
+            {
+                Object.entries(CodeStyles).map((item, i) => { 
+                    return <button className="code-language-buttons" key={i} onClick={ () => { newCode.style = item[1] } }>{item[0]}</button>
+                })
+            }
+        </div>;
         
         return (
             <>
                 <h2>Code</h2>
-                <div style={{ display: 'flex', width: '100%', height: 'auto', flexWrap: 'wrap' }}>
+                {console.log(this.state)}
+                <div id="code-wrapper">
+                    <button onClick={ this.toggleCodeLanguages } id="code-language-button" className="code-button">Language</button>
+                    <button onClick={ this.toggleCodeStyles } id="code-style-button" className="code-button">Style</button>
                     {
-                        SyntaxHighlighter.supportedLanguages.map((item, i) => {
-                            return <button key={i} onClick={ () => { newCode.language = item } }>{item}</button>
-                        })
+                        this.state.codeOptionsDisplay.languages ?
+                            languages
+                        :
+                            this.state.codeOptionsDisplay.styles ?
+                                styles
+                            :
+                                <div style={{ height:'500px',width:'100%' }}>
+                                    <p>{newCode.language}</p>
+                                    <p>{newCode.style}</p>
+                                </div>
                     }
                     {
-                        Object.entries(CodeStyles).map((item, i) => { 
-                            return <button key={i} onClick={ () => { newCode.style = item[1] } }>{item[0]}</button>
-                        })
+
                     }
                 </div>
                 <textarea id='code-data' cols='60' rows='7' />
@@ -471,6 +502,26 @@ class DisplayCRUDForm extends React.Component {
         }))
     }
 
+    toggleCodeLanguages = () => {
+        this.setState(oldState => ({
+            ...oldState,
+            codeOptionsDisplay: {
+                languages: !oldState.codeOptionsDisplay.languages,
+                styles: oldState.codeOptionsDisplay.styles,
+            },
+        }))
+    }
+
+    toggleCodeStyles = () => {
+        this.setState(oldState => ({
+            ...oldState,
+            codeOptionsDisplay: {
+                languages: oldState.codeOptionsDisplay.languages,
+                styles: !oldState.codeOptionsDisplay.styles,
+            },
+        }))
+    }
+
     toggleAddComponent = () => {
         this.setState(oldState => ({
             ...oldState,
@@ -554,10 +605,10 @@ class DisplayCRUDForm extends React.Component {
                     }
                 </div>
                 <div id="post-options-wrap">
-                    <div class="post-options-buttons" onClick={ this.toggleAddComponent }>Add</div>
-                    <div class="post-options-buttons" onClick={ this.togglePreview }>Preview</div>
-                    <div class="post-options-buttons" onClick={ this.savePost }>Save</div>
-                    <div class="post-options-buttons" onClick={ this.publishPost }>Publish</div>
+                    <div className="post-options-buttons" onClick={ this.toggleAddComponent }>Add</div>
+                    <div className="post-options-buttons" onClick={ this.togglePreview }>Preview</div>
+                    <div className="post-options-buttons" onClick={ this.savePost }>Save</div>
+                    <div className="post-options-buttons" onClick={ this.publishPost }>Publish</div>
                 </div>
                 {
                     this.state.preview.display ?
