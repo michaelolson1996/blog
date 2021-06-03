@@ -6,12 +6,6 @@ import Loading from '../components/Loading';
 const stripePromise = loadStripe('pk_test_51Iy6rkKshOV09SHW1DFNCvjnVNlGsW1wOKPq4nNmQBZXS6EhWNJdAeTPmacaeynX09aK4yubaL78hSP0LpRvgwfW00T2PNmENz');
 
 class Donate extends React.Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-
-    //     }
-    // }
 
     componentDidMount() {
         this.props.createCheckoutSession();

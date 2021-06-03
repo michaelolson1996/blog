@@ -12,6 +12,7 @@ import CategoryPosts from './pages/CategoryPosts';
 import Post from './pages/Post';
 import Footer from './components/Footer';
 import Donate from './pages/Donate';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route exact path="/categories/:category/:post">
           <Post />
+        </Route>
+        <Route path="/contact">
+          <Contact />
         </Route>
         <Route path="/donate">
           <Donate />

@@ -1,17 +1,20 @@
 #category-graph-wrapper {
     width: 100%;
+    min-height: 100vh;
     height: auto;
     display: grid;
     grid-template-columns: repeat(2, auto);
+    grid-template-rows: 250px;
     margin-top:160px;
 }
 
 .category-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     cursor:pointer;
     margin:0 auto 50px auto;
+    height: 200px
 }
 
 .category-image {
@@ -25,8 +28,8 @@
     font-size: 1.4rem;
 }
 
-.test {
+/* .test {
     width:100%;
     height: 1000px;
     background-color: aquamarine;
-}
+} */
