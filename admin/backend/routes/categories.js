@@ -120,8 +120,6 @@ categoryRouter.route("/edit")
                 }
             };
 
-            console.log(deleteParam)
-
             s3.deleteObjects(deleteParam, function(err, data) {
                 if (err) console.log(err, err.stack);
                 else console.log('delete', data);

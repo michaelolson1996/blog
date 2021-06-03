@@ -19,6 +19,9 @@ function App() {
         <Route path='/admin'>
             <Admin />
         </Route>
+        <Route path='/admin/:category'>
+          
+        </Route>
       </Switch>
     </Router>
   );

@@ -57,11 +57,11 @@ class DisplayEditCategory extends React.Component {
     }
 
     updateCategory = () => {
-        // if (this.state.title === this.state.newTitle && this.state.image === this.state.newImage)
-        //     return alert("items have not changed")
+        if (this.state.title === this.state.newTitle && this.state.image === this.state.newImage)
+            return alert("items have not changed")
 
-        // if (this.state.newTitle.length === 0 || this.state.newImage.length === 0)
-        //     return alert("title and image must be not empty")
+        if (this.state.newTitle.length === 0 || this.state.newImage.length === 0)
+            return alert("title and image must be not empty")
 
         this.props.editCategory({ 
             title: this.state.title,
@@ -79,22 +79,21 @@ class DisplayEditCategory extends React.Component {
             <>
                 {
                     this.state.isEditing ?
-                        <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent:'space-around', alignItems: 'center' }}>
-                            <div>
-                                <label htmlFor='new-title'>New Title</label>
+                        <div id="edit-category-form">
+                            <div id="edit-category-title-input-wrapper">
                                 <input onChange={ this.updateTitle }
-                                    id='new-title'
+                                    id='edit-category-title-input'
                                     type='text'
                                     value={ this.state.newTitle } />
                             </div>
-                            <img src={this.state.newImage} alt="dummy" width="300" height="300" />
+                            <img id="edit-category-image" src={this.state.newImage} alt="dummy" />
                             <input
                                 type="file"
                                 id="upload-button"
                                 onChange={ this.replaceImage }
                                 accept="image/*" />
-                            <button onClick={ this.updateCategory }>Update Category</button>
-                            <button onClick={ this.displayCategories }>Return to Categories</button>
+                            <button className="edit-category-buttons" onClick={ this.updateCategory }>Update Category</button>
+                            <button className="edit-category-buttons" onClick={ this.displayCategories }>Return to Categories</button>
                         </div>
                     :
                         <div style={{ height: '100%', width: '100%', display: 'flex', flexWrap: 'wrap' }}>

@@ -21,8 +21,6 @@ export const getPosts = category => {
 }
 
 export const postPost = (post) => {
-
-    console.log(post)
     return dispatch => {
         return postsAxios.post(`/admin/post/${ post.chosenCategory }`, post)
             .then(res => {

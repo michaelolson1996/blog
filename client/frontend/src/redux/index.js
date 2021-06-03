@@ -2,10 +2,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import categories from './categories';
 import posts from './posts';
+import payments from './stripe';
 
 const rootReducer = combineReducers({
     categories,
-    posts
+    posts,
+    payments
 });
 
 export default createStore(

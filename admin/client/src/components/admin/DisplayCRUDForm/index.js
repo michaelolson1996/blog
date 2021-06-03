@@ -495,7 +495,7 @@ class DisplayCRUDForm extends React.Component {
                                 </div>
                             </>
                         :
-                        <></>
+                            <></>
                     }
                 </div>
                 <div className='blog-container' style={{ width: '100%' }}>

@@ -58,5 +58,37 @@ postRouter.route("/:category")
         
         return res.status(200).send({ posts: [] });
     })
+    .get((req, res) => {
+
+        s3.listObjectsV2({ Prefix: `${req.params.category}/` }).promise()
+        .then(data => {
+            let posts = []
+
+            data.Contents.forEach(content => {
+                let tempKey = content.Key.split("/");
+                if (!tempKey[1].includes(".") && !posts.includes(tempKey[1]) && tempKey[1] !== "")
+                    posts.push(tempKey[1])
+            })
+
+            return res.status(200).send({ posts })
+        })
+    })
+
+    postRouter.route("/:category/:posts")
+        .get((req, res) => {
+            const category = encodeURIComponent(req.params.category);
+            const post = encodeURIComponent(req.params.post);
+            const key = `${category}/${post}/${post}.json`;
+    
+            const params = {
+                Bucket: "michaelolson-blog-bucket",
+                Key: key
+            }
+    
+            s3.getObject(params).promise()
+                .then(data => {
+                    return res.status(200).send(data.Body.toString())
+                })
+        })
 
 module.exports = postRouter;

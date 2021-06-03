@@ -73,7 +73,7 @@ const NavBar = () => {
                                 <NavLink className="navbar-menu-list-link" to="/">Contact</NavLink>
                             </li>
                             <li className="navbar-menu-list-item" onClick={ () => setDisplayDropDown(!displayDropDown) }>
-                                <NavLink className="navbar-menu-list-link" to="/">Donate</NavLink>
+                                <NavLink className="navbar-menu-list-link" to="/donate">Donate</NavLink>
                             </li>
                         </ul>
                     </nav>

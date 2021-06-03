@@ -11,6 +11,7 @@ import Categories from './pages/Categories';
 import CategoryPosts from './pages/CategoryPosts';
 import Post from './pages/Post';
 import Footer from './components/Footer';
+import Donate from './pages/Donate';
 
 function App() {
   return (
@@ -29,7 +30,11 @@ function App() {
         <Route exact path="/categories/:category/:post">
           <Post />
         </Route>
+        <Route path="/donate">
+          <Donate />
+        </Route>
       </Switch>
+      <Footer />
     </Router>
   );
 }
