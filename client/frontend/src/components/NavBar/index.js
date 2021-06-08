@@ -15,7 +15,6 @@ const NavBar = () => {
                 </div>
                 <div id="navbar-burger-wrapper" onClick={ () => {
                         setDisplayDropDown(!displayDropDown)
-
                     } }>
                     <div id="navbar-burger">
                         <div className="navbar-burger-item"></div>
@@ -23,6 +22,22 @@ const NavBar = () => {
                         <div className="navbar-burger-item"></div>
                     </div>
                 </div>
+                <nav id="navbar-desktop-menu">
+                        <ul id="navbar-desktop-menu-list">
+                            <li className="navbar-desktop-menu-list-item" onClick={ () => setDisplayDropDown(!displayDropDown) }>
+                                <NavLink className="navbar-desktop-menu-list-link" to="/">Home</NavLink>
+                            </li>
+                            <li className="navbar-desktop-menu-list-item" onClick={ () => setDisplayDropDown(!displayDropDown) }>
+                                <NavLink className="navbar-desktop-menu-list-link" to="/categories">Categories</NavLink>
+                            </li>
+                            <li className="navbar-desktop-menu-list-item" onClick={ () => setDisplayDropDown(!displayDropDown) }>
+                                <NavLink className="navbar-desktop-menu-list-link" to="/contact">Contact</NavLink>
+                            </li>
+                            <li className="navbar-desktop-menu-list-item" onClick={ () => setDisplayDropDown(!displayDropDown) }>
+                                <NavLink className="navbar-desktop-menu-list-link" to="/donate">Donate</NavLink>
+                            </li>
+                        </ul>
+                    </nav>
             </div>
 
             {

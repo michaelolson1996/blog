@@ -28,8 +28,8 @@
     font-size: 1.4rem;
 }
 
-/* .test {
-    width:100%;
-    height: 1000px;
-    background-color: aquamarine;
-} */
+@media only screen and (min-width:800px) {
+    #category-graph-wrapper {
+        /* grid-templ */
+    }
+}
