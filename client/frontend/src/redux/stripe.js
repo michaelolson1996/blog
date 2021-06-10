@@ -1,6 +1,6 @@
 import axios from 'axios';
 const stripeAxios = axios.create();
-const stripeUrl = "/payment";
+const stripeUrl = "/api/payment";
 
 const returnResponse = id => {
     return {

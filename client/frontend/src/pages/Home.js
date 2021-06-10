@@ -1,106 +1,10 @@
 import React, { useState } from 'react';
 import './styles/home.css';
-import Particles from 'react-particles-js';
+import MyParticles from '../components/MyParticles';
 
 const Home = () => {
-
-    const [particles_count, setParticlesCount] = useState(13);
-
-    const returnInitialParticles = () => {
-
-        let windowWidth = window.innerWidth;
-        let initialParticalCount;
-
-        if (windowWidth < 600)
-            initialParticalCount = 13
-        else if (windowWidth < 1000)
-            initialParticalCount = 30
-        else
-            initialParticalCount = 70
-
-        return (
-            <Particles width="100vw" height="100vh" params={{
-                particles: {
-                    number: {
-                        value: initialParticalCount
-                    },
-                    size: {
-                        value: 1
-                    },
-                    color: {
-                        value: "#0e2439"
-                    },
-                    line_linked: {
-                        shadow: {
-                            enable: true,
-                            distance: 50,
-                            color: "#0e2439",
-                            blur: .01
-                        }
-                    },
-                    draw: {
-                        enable: true,
-                        stroke: {
-                            color: "#0e2439"
-                        }
-                    }
-                }
-            }}
-            style={{
-                width: '100vw',
-                position: 'fixed',
-                top:0,
-                left:0,
-                zIndex: -10,
-                height:'100vh'
-            }} />
-        )
-    }
-
-    const returnParticles = () => {
-        return (
-            <Particles width="100vw" height="100vh" params={{
-                particles: {
-                    number: {
-                        value: particles_count
-                    },
-                    size: {
-                        value: 1
-                    },
-                    color: {
-                        value: "#0e2439"
-                    },
-                    line_linked: {
-                        shadow: {
-                            enable: true,
-                            distance: 50,
-                            color: "#0e2439",
-                            blur: .01
-                        }
-                    },
-                    draw: {
-                        enable: true,
-                        stroke: {
-                            color: "#0e2439"
-                        }
-                    }
-                }
-            }}
-            style={{
-                width: '100vw',
-                position: 'fixed',
-                top:0,
-                left:0,
-                zIndex: -10,
-                height:'100vh'
-            }} />
-        )
-    }
-
-
     return (
         <>
-            {returnInitialParticles()}
             <div id="home-wrapper">
                 <div id="home-quote-section">
                     <img src="/trees.jpg" id="home-image" />
@@ -131,23 +35,8 @@ const Home = () => {
                     </p>
                 </div>
             </div>
-
-            {
-                window.onresize = () => {
-                    let windowWidth = window.innerWidth;
-
-                    if (windowWidth < 600 && particles_count !== 13)
-                        setParticlesCount(13)
-                    else if (windowWidth < 1000 && particles_count !== 30)
-                        setParticlesCount(30)
-                    else
-                        setParticlesCount(70)
-
-                    returnParticles();
-                }
-            }
+            <MyParticles />
         </>
-
     )
 }
 

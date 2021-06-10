@@ -6,9 +6,9 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
-    "client": "npm start --prefix ../frontend",
+    "client": "npm start",
     "server": "nodemon server.js",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

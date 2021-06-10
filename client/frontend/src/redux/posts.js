@@ -17,7 +17,7 @@ const returnPost = post => {
 
 export const getPosts = category => {
     return dispatch => {
-        return postsAxios.get(`/categories/posts/${category}`)
+        return postsAxios.get(`/api/categories/posts/${category}`)
             .then(res => {
                 dispatch(returnPosts(res.data.posts));
             })
@@ -29,7 +29,7 @@ export const getPosts = category => {
 
 export const getPost = post => {
     return dispatch => {
-        return postsAxios.get(post.post)
+        return postsAxios.get("/api/"+post.post)
             .then(res => {
                 dispatch(returnPost(res.data));
             })

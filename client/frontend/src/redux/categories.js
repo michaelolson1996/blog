@@ -1,6 +1,6 @@
 import axios from 'axios';
 const categoryAxios = axios.create();
-const categoryUrl = "/categories";
+const categoryUrl = "/api/categories";
 
 const returnCategories = categories => {
     return {

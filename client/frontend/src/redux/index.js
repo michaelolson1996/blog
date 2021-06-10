@@ -3,8 +3,10 @@ import thunk from 'redux-thunk';
 import categories from './categories';
 import posts from './posts';
 import payments from './stripe';
+import emailSuccess from './email';
 
 const rootReducer = combineReducers({
+    emailSuccess,
     categories,
     posts,
     payments

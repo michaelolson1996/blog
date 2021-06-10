@@ -41,37 +41,40 @@ const NavBar = () => {
             </div>
 
             {
-                window.onscroll = () => {
-                    document.getElementById("navbar-wrapper") !== null ? 
-                        window.pageYOffset > navbarPositionY && navbarPositionY > 80 ?
-                            document.getElementById("navbar-wrapper").className.includes("navbar-small") ?
-                                <></>
-                            :
-                            (() => {
-                                document.getElementById("navbar-wrapper").className = "navbar-small"
-                                document.getElementById("navbar-burger").style.height = "60%"
-                                document.getElementById("navbar-menu-wrapper") ?
-                                    document.getElementById("navbar-menu-list").style.top = "80px"
-                                :
+                window.onscroll !== null ?
+                    window.onscroll = () => {
+                        document.getElementById("navbar-wrapper") !== null ? 
+                            window.pageYOffset > navbarPositionY && navbarPositionY > 80 ?
+                                document.getElementById("navbar-wrapper").className.includes("navbar-small") ?
                                     <></>
-                            })()
-                        :
-                            document.getElementById("navbar-wrapper").className.includes("navbar-small") ?
+                                :
                                 (() => {
-                                    document.getElementById("navbar-burger").style.height = "48%"
-                                    document.getElementById("navbar-wrapper").className = ""
+                                    document.getElementById("navbar-wrapper").className = "navbar-small"
+                                    document.getElementById("navbar-burger").style.height = "60%"
                                     document.getElementById("navbar-menu-wrapper") ?
-                                        document.getElementById("navbar-menu-list").style.top = "100px"
+                                        document.getElementById("navbar-menu-list").style.top = "80px"
                                     :
                                         <></>
                                 })()
                             :
-                                <></>
-                    :
-                        <></>
+                                document.getElementById("navbar-wrapper").className.includes("navbar-small") ?
+                                    (() => {
+                                        document.getElementById("navbar-burger").style.height = "48%"
+                                        document.getElementById("navbar-wrapper").className = ""
+                                        document.getElementById("navbar-menu-wrapper") ?
+                                            document.getElementById("navbar-menu-list").style.top = "100px"
+                                        :
+                                            <></>
+                                    })()
+                                :
+                                    <></>
+                        :
+                            <></>
 
-                    setNavbarPositionY(window.pageYOffset)
+                            return setNavbarPositionY(window.pageYOffset)
                 }
+                :
+                <></>
             }
 
             {

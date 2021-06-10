@@ -3,6 +3,7 @@ import { getCategories } from '../redux/categories';
 import { connect } from 'react-redux';
 import Category from '../components/Category';
 import Loading from '../components/Loading';
+import MyParticles from '../components/MyParticles';
 import "./styles/categories.css";
 
 class Categories extends React.Component {
@@ -25,6 +26,7 @@ class Categories extends React.Component {
     render() {
         return (
             <>
+                <MyParticles />
                 {
                     this.state.categories.length > 0 ?
                         <div id="category-graph-wrapper">

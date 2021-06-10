@@ -1,10 +1,36 @@
 version: "3.9"
 services:
-    web:
-        container_name: blog-client
+    blog-frontend:
+        container_name: blog-front
+        init: true
         build:
             context: ./frontend
         command: npm start
         ports:
+            - 3000:3000
+        working_dir: /app
+        restart: always
+    blog-backend:
+        container_name: blog-back
+        init: true
+        build:
+            context: ./backend
+        environment:
+            - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+            - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        command: npm start
+        ports:
             - 3001:3001
         working_dir: /app
+        restart: always
+    blog-proxy:
+        container_name: blog-proxy
+        init: true
+        build:
+            context: ./proxy
+        depends_on:
+            - blog-frontend
+            - blog-backend
+        ports:
+            - 80:80
+            - 443:443
