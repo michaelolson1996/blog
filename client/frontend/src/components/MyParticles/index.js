@@ -50,20 +50,12 @@ class MyParticles extends React.Component {
                         color: {
                             value: "#0e2439"
                         },
-                        // line_linked: {
-                        //     shadow: {
-                        //         enable: true,
-                        //         distance: 50,
-                        //         color: "#0e2439",
-                        //         blur: .01
-                        //     }
-                        // },
-                        // draw: {
-                        //     enable: true,
-                        //     stroke: {
-                        //         color: "#0e2439"
-                        //     }
-                        // }
+                        links: {
+                            color: {
+                                value: "#0e2439"
+                            },
+                            enable: true
+                        }
                     }
                 }}
                 style={{

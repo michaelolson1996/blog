@@ -16,8 +16,15 @@ services:
         build:
             context: ./backend
         environment:
-            - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-            - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+            - "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
+            - "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
+            - "STRIPE_TEST_KEY_SK=${STRIPE_TEST_KEY_SK}"
+            - "STRIPE_TEST_KEY_PK=${STRIPE_TEST_KEY_PK}"
+            - "EMAIL_HOST=${EMAIL_HOST}"
+            - "EMAIL_USER=${EMAIL_USER}"
+            - "EMAIL_PASSWORD=${EMAIL_PASSWORD}"
+            - "EMAIL=${EMAIL}"
+            - "EMAIL_TO=${EMAIL_TO}"
         command: npm start
         ports:
             - 3001:3001
@@ -34,3 +41,4 @@ services:
         ports:
             - 80:80
             - 443:443
+        restart: always
