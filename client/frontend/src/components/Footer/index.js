@@ -9,13 +9,13 @@ const Footer = () => {
     return (
         <div id="footer-wrapper">
             <div id="footer-icons-wrapper">
-                <a target="_blank" href="https://www.linkedin.com/in/michael-olson-devops/">
+                <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/michael-olson-devops/">
                     <FontAwesomeIcon className="footer-icons" icon={faLinkedin} />
                 </a>
-                <a target="_blank" href="https://github.com/michaelolson1996">
+                <a target="_blank" rel="noreferrer" href="https://github.com/michaelolson1996">
                     <FontAwesomeIcon className="footer-icons" icon={faGithub} />
                 </a>
-                <a target="_blank" href="https://michaelolson.me">
+                <a target="_blank" rel="noreferrer" href="https://michaelolson.me">
                     <FontAwesomeIcon className="footer-icons" icon={faUserTie} />
                 </a>
                 <a href="/resume.pdf" download="MichaelOlson_resume.pdf">

@@ -14,7 +14,7 @@ class MyParticles extends React.Component {
         this.setCount();
     }
 
-    setCount = () => {
+    setCount=()=>{
         let windowWidth = window.innerWidth;
         let particles_count = this.state.particles_count;
         let newCount = 0;

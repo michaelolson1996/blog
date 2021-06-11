@@ -1,0 +1,33 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2020,
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "arrowFunctions": true,
+            "classes": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/prop-types": "off"
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "17.0.2"
+        }
+    },
+    "globals": {
+        "window": "readonly",
+        "document": "readonly",
+        "console": "readonly",
+        "require": "writable"
+    }
+}

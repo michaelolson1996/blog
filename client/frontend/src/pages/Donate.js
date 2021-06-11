@@ -17,10 +17,9 @@ class Donate extends React.Component {
             (async () => {
                 const stripe = await stripePromise;
                 
-                const result = await stripe.redirectToCheckout({
+                stripe.redirectToCheckout({
                     sessionId: this.props.payments.id,
                 });
-
             })()
         :
             <></>

@@ -15,7 +15,7 @@ class Post extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getPost({ post: window.location.pathname.toString() });
+        this.props.getPost({ post: this.window.location.pathname.toString() });
     }
 
     componentDidUpdate() {

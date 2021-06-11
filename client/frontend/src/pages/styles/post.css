@@ -1,5 +1,5 @@
 #post-wrapper {
-    margin-top: 120px;
+    margin: 120px auto 100px auto;
     display: flex;
     flex-direction: column;
     height: auto;
