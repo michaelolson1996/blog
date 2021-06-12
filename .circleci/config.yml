@@ -15,7 +15,7 @@ jobs:
             - run:
                 name: Deploy to Prod
                 command: |
-                    - ../build/deploy.sh
+                    ../build/deploy.sh
 workflows:
     version: 2
     deploy:
