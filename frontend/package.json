@@ -30,9 +30,9 @@
   "scripts": {
     "test": "npx mocha test -u bdd -R spec",
     "pretest": "npm run clean; npm run lint",
-    "posttest": "tests completed!",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "posttest": "echo 'tests completed!'",
+    "start": "npm run clean; react-scripts build; npm run build",
+    "build": "pm2 serve build 3000 --spa --no-daemon",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "precompile": "npm run clean",
@@ -41,8 +41,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "proxy": "http://blog-proxy:80",

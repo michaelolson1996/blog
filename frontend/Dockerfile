@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY package*.json /app/
 
-RUN npm install --quiet
+RUN npm install --quiet && npm install -g pm2
 
 COPY . .
