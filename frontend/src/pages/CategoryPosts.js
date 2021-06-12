@@ -13,7 +13,7 @@ class CategoryPosts extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getPosts(this.window.location.pathname.split("/")[this.window.location.pathname.split("/").length - 1]);
+        this.props.getPosts(window.location.pathname.split("/")[window.location.pathname.split("/").length - 1]);
     }
 
     componentDidUpdate() {
@@ -28,7 +28,7 @@ class CategoryPosts extends React.Component {
                     this.state.posts.length > 0 ?
                         this.state.posts.map((post, i) => {
                             return (
-                                <NavLink className="category-post-button" to={`/categories/${this.window.location.pathname.split("/")[this.window.location.pathname.split("/").length - 1]}/${post}`} key={i}>
+                                <NavLink className="category-post-button" to={`/categories/${window.location.pathname.split("/")[window.location.pathname.split("/").length - 1]}/${post}`} key={i}>
                                     {decodeURIComponent(post)}
                                 </NavLink>
                             )
