@@ -1,6 +1,5 @@
 #!/bin/bash
 
-cd ..
 ls
 tar -zcvf michaelolsonblog.tar.gz ./src/
 
