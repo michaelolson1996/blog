@@ -1,11 +1,11 @@
 version: 2
 jobs:
-    build:
-        machine:
-            image: ubuntu-2004:202104-01
-        working_directory: ~/repo
-        steps:
-            - checkout
+    #    build:
+    #        machine:
+    #            image: ubuntu-2004:202104-01
+    #        working_directory: ~/repo
+    #        steps:
+    #            - checkout
     deploy:
         machine:
             image: ubuntu-2004:202104-01
