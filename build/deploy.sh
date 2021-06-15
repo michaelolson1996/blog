@@ -46,7 +46,9 @@ if [ ${ip_count} > 0 ]; then
                     do
                         this_cidr=$(echo ${current_security_group} | jq -r ".SecurityGroups[0].IpPermissions[${n}].IpRanges[${c}].CidrIp")
                         aws ec2 revoke-security-group-ingress --region ${AWS_REGION} --group-id ${AWS_SEC_GROUP_ID} --protocol tcp --port ${this_port} --cidr ${this_cidr}
+                    done
                 fi
+            done
         done
     done
 fi
