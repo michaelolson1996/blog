@@ -1,14 +1,18 @@
 #!/bin/bash
 
-sudo mkdir ~/.aws
+mkdir ~/.aws
 
-sudo touch ~/.aws/credentials
+touch ~/.aws/credentials
+
+chmod 666 ~/.aws/credentials
 
 cat >~/.aws/credentials <<EOL
 [default]
 aws_access_key_id=${AWS_USER_ID}
 aws_secret_access_key=${AWS_USER_KEY}
 EOL
+
+chmod 644 ~/.aws/credentials
 
 aws configure list-profiles
 
