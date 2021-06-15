@@ -14,9 +14,9 @@ jobs:
             - checkout
             - run:
                 name: Deploy to Prod
-                commands:
-                    - chmod +x ./build/deploy.sh
-                    - ./build/deploy.sh
+                command: |
+                    chmod +x ./build/deploy.sh && \
+                    ./build/deploy.sh
 workflows:
     version: 2
     deploy:
