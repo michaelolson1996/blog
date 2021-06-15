@@ -1,5 +1,16 @@
 #!/bin/bash
 
+mkdir ~/.aws
+
+touch ~/.aws/credentials
+
+cat >~/.aws/credentials <<EOL
+
+[default]
+aws_access_key_id=${AWS_USER_ID}
+aws_secret_access_key=${AWS_USER_KEY}
+EOL
+
 public_ip_address=$(wget -qO- http://checkip.amazonaws.com)
 echo "this computers public ip address is $public_ip_address"
 aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $AWS_SEC_GROUP_ID --ip-permissions "[{\"IpProtocol\": \"tcp\", \"FromPort\": ${CIRCLECI_VM_PORT}, \"ToPort\": ${AWS_VM_PORT}, \"IpRanges\": [{\"CidrIp\": \"${public_ip_address}/32\"}]}]"
