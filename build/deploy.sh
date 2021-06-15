@@ -19,6 +19,6 @@ mv src michaelolson.blog
 
 cp .env michaelolson.blog
 
-cd michaelolson.blog && docker-compose upp --build -d
+cd michaelolson.blog && docker-compose up --build -d
 
 HERE
