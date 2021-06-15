@@ -1,15 +1,16 @@
 #!/bin/bash
 
-mkdir ~/.aws
+sudo mkdir ~/.aws
 
-touch ~/.aws/credentials
+sudo touch ~/.aws/credentials
 
-cat >~/.aws/credentials <<EOL
-
+sudo cat >~/.aws/credentials <<EOL
 [default]
 aws_access_key_id=${AWS_USER_ID}
 aws_secret_access_key=${AWS_USER_KEY}
 EOL
+
+aws configure list-profiles
 
 public_ip_address=$(wget -qO- http://checkip.amazonaws.com)
 echo "this computers public ip address is $public_ip_address"
@@ -20,21 +21,13 @@ tar -zcvf michaelolsonblog.tar.gz ./src/
 scp michaelolsonblog.tar.gz ec2-user@michaelolson.blog:/home/ec2-user
 
 ssh ec2-user@michaelolson.blog << HERE
-
 tar -xvzf michaelolsonblog.tar.gz
-
 cd michaelolson.blog
-
 docker-compose down
-
 cd .. && rm -r michaelolson.blog
-
 mv src michaelolson.blog
-
 cp .env michaelolson.blog
-
 cd michaelolson.blog && docker-compose up --build -d
-
 HERE
 
 current_security_group=$(aws ec2 describe-security-groups --region ${AWS_REGION} --group-id ${AWS_SEC_GROUP_ID})
