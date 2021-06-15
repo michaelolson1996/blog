@@ -4,7 +4,7 @@ sudo mkdir ~/.aws
 
 sudo touch ~/.aws/credentials
 
-sudo cat >~/.aws/credentials <<EOL
+cat >~/.aws/credentials <<EOL
 [default]
 aws_access_key_id=${AWS_USER_ID}
 aws_secret_access_key=${AWS_USER_KEY}
