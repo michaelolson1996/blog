@@ -20,7 +20,7 @@ class Categories extends React.Component {
 
     componentDidUpdate() {
         if (this.props.categories.categories && this.props.categories.categories.length !== this.state.categories.length)
-            this.setState({ categories: [...this.props.categories.categories] })
+            this.setState({ categories: [...this.props.categories.categories] });
     }
 
     render() {

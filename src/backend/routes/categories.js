@@ -58,7 +58,7 @@ categoryRouter.route("/")
 categoryRouter.route("/posts/:category")
     .all((req, res) => {
 
-        s3.listObjectsV2({ Prefix: `${req.params.category}/` }).promise()
+        s3.listObjectsV2({ Prefix: `${encodeURIComponent(req.params.category)}/` }).promise()
             .then(data => {
                 let posts = []
 
@@ -74,7 +74,7 @@ categoryRouter.route("/posts/:category")
 
 categoryRouter.route("/:category/:post")
     .all((req, res) => {
-
+        
         const category = encodeURIComponent(req.params.category);
         const post = encodeURIComponent(req.params.post);
         const key = `${category}/${post}/${post}.js`;

@@ -13,7 +13,7 @@ stripeRouter.route("/")
                   price_data: {
                     currency: 'usd',
                     product_data: {
-                      name: 'T-shirt',
+                      name: 'Donation',
                     },
                     unit_amount: 2000,
                   },
@@ -21,8 +21,8 @@ stripeRouter.route("/")
                 },
               ],
             mode: 'payment',
-            success_url: 'http://localhost:3000',
-            cancel_url: 'http://localhost:3000',
+            success_url: 'https://www.michaelolson.blog',
+            cancel_url: 'https://www.michaelolson.blog',
         })
 
         return res.status(200).send({ id: session.id });

@@ -6,9 +6,10 @@
   "license": "ISC",
   "main": "server.js",
   "scripts": {
-    "client": "npm start",
+    "client": "npm run start:dev --prefix ../frontend",
     "server": "nodemon server.js",
     "start": "npm run server",
+    "start:dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "mocha test/index.js"
   },
   "dependencies": {
