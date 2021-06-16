@@ -133,11 +133,11 @@ figcaption {
         font-size: 2.4rem;
     }
 
-    /* .home-michael-section {
+    .home-michael-section {
         max-width: 900px;
         width: 40vw;
         font-size:1.8rem;
-    } */
+    }
 }
 
 @media only screen and (max-width: 800px) {
