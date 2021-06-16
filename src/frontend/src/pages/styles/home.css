@@ -47,7 +47,9 @@ figcaption {
 #home-info-section {
     margin: 80px auto 0 auto;
     height: auto;
-    width: 325px;
+    min-width: 325px;
+    max-width: 550px;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,11 +133,11 @@ figcaption {
         font-size: 2.4rem;
     }
 
-    .home-michael-section {
+    /* .home-michael-section {
         max-width: 900px;
         width: 40vw;
         font-size:1.8rem;
-    }
+    } */
 }
 
 @media only screen and (max-width: 800px) {
@@ -180,8 +182,20 @@ figcaption {
     figure {
         width:auto
     }
+
+    /* #home-info-section {
+        max-width: 625px;
+        width: 50%
+    } */
 }
 
+
+/* Pixel 3 */
+@media only screen and (min-device-width: 393px) and (max-device-height: 767px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2.75) {
+    #home-image {
+        width: 320px;
+    }
+}
 
 /* IPhone 6/7/8 */
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){

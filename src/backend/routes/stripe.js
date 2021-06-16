@@ -1,7 +1,7 @@
 const express = require('express');
 const stripeRouter = express.Router();
 require('dotenv').config();
-const stripe = require('stripe')(`${process.env.STRIPE_TEST_KEY_SK}`);
+const stripe = require('stripe')(`${process.env.STRIPE_KEY_SK}`);
 
 stripeRouter.route("/")
     .post( async (req, res) => {

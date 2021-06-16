@@ -25,6 +25,8 @@ services:
             - "EMAIL_PASSWORD=${EMAIL_PASSWORD}"
             - "EMAIL=${EMAIL}"
             - "EMAIL_TO=${EMAIL_TO}"
+            - "STRIPE_KEY_SK=${STRIPE_KEY_SK}"
+            - "STRIPE_KEY_PK=${STRIPE_KEY_PK}"
         command: npm start
         ports:
             - 3001:3001
