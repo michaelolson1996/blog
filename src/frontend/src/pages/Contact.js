@@ -2,7 +2,6 @@ import React from 'react';
 import "./styles/contact.css";
 import { connect } from 'react-redux';
 import { sendEmail } from '../redux/email';
-import MyParticles from '../components/MyParticles';
 
 class Contact extends React.Component {
     constructor(props) {
@@ -68,7 +67,6 @@ class Contact extends React.Component {
                         <button onClick={ () => { this.sendEmail() } } id="contact-submit-button">Submit</button>
                     </div>
                 </div>
-                <MyParticles />
             </>
         )
     }

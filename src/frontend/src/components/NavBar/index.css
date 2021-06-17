@@ -1,34 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap');
 
-#navbar-wrapper {
-    width: 100vw;
-    height: 100px;
-    background-color: #0e2439;
-    display:flex;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 5;
-}
-
-#navbar-wrapper.navbar-small {
-    height: 80px;
-    opacity: 0.75;
-}
-
-#navbar-title-wrapper {
-    height: 100%;
-    display:flex;
-    align-items: center;
-}
-
 #navbar-title {
-    color: #F4FFF8;
     font-family: 'Barlow Condensed';
-    margin: 0;
-    padding-left: 20px;
-    letter-spacing: 1.2;
 }
 
 #navbar-burger-wrapper {
@@ -93,18 +66,18 @@
 }
 
 @media only screen and (min-width:1000px) {
-    #navbar-burger-wrapper {
+    /* #navbar-burger-wrapper {
         display: none;
     }
 
     #navbar-menu-wrapper {
         display: none
-    }
+    } */
 
     #navbar-desktop-menu {
-        height: 100%;
-        width: auto;
+        width: 100vw;
         display: block;
+        background-color: #0e2439;
     }
 
     #navbar-desktop-menu-list {
@@ -115,10 +88,6 @@
         justify-content: space-around;
         align-items: center;
         margin:0
-    }
-
-    .navbar-desktop-menu-list-item {
-        
     }
 
     .navbar-desktop-menu-list-link {
