@@ -1,26 +1,34 @@
-import React from 'react';
-// import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import {
     AppBar,
     Typography,
     Toolbar,
-    // MenuItem,
-    IconButton
+    List,
+    Drawer,
+    ListItem,
+    IconButton,
+    makeStyles,
+    ListItemText
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
-  }));
+    list: {
+        width: 270,
+    }
+}));
 
 const NavBar = () => {
     const classes = useStyles();
+    const [toggle, setToggle] = useState(false);
+    const anchor = "right";
 
     return (
         <>
@@ -29,45 +37,59 @@ const NavBar = () => {
                     <Typography variant="h4" className={ classes.title }>
                         michaelolson.blog
                     </Typography>
-                    <IconButton edge="start" className={ classes.menuButton }  color="inherit" aria-label="menu">
-                        <MenuIcon />
+                    <IconButton 
+                        onClick={ () => setToggle(true) }
+                        edge="start"
+                        className={ classes.menuButton }
+                        color="inherit"
+                        aria-label="menu">
+                            <MenuIcon />
                     </IconButton>
-                    {/* <MenuItem>
-                        <NavLink to="/">
-                            <Typography variant="h6">
-                                Home
-                            </Typography>
-                        </NavLink>
-                    </MenuItem>
-                    <MenuItem>
-                        <NavLink to="/categories">
-                            <Typography variant="h6">
-                                Categories
-                            </Typography>
-                        </NavLink>
-                    </MenuItem>
-                    <MenuItem>
-                        <NavLink to="/contact">
-                            <Typography variant="h6">
-                                Contact
-                            </Typography>
-                        </NavLink>
-                    </MenuItem>
-                    <MenuItem>
-                        <NavLink to="/donate">
-                            <Typography variant="h6">
-                                Donate
-                            </Typography>
-                        </NavLink> */}
-                    {/* </MenuItem> */}
-                    {/* <ul id="navbar-desktop-menu-list">
-                        <NavLink className="navbar-desktop-menu-list-link" to="/">Home</NavLink>
-                        <NavLink className="navbar-desktop-menu-list-link" to="/categories">Categories</NavLink>
-                        <NavLink className="navbar-desktop-menu-list-link" to="/contact">Contact</NavLink>
-                        <NavLink className="navbar-desktop-menu-list-link" to="/donate">Donate</NavLink>
-                    </ul> */}
                 </Toolbar>
             </AppBar>
+            <Drawer anchor={anchor} open={toggle} onClose={ () => setToggle(false) }>
+                <div
+                    className={ classes.list }
+                    role="presentation"
+                    onClick={ () => setToggle(false) }
+                    onKeyDown={ () => setToggle(false) }
+                >
+                    <List>
+                        <ListItem 
+                            button
+                            key="Home"
+                            component={ NavLink }
+                            to="/"
+                        >
+                            <ListItemText primary="Home" />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            key="Categories"
+                            component={ NavLink }
+                            to="/categories"
+                        >
+                            <ListItemText primary="Categories" />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            key="Contact"
+                            component={ NavLink }
+                            to="/contact"
+                        >
+                            <ListItemText primary="Contact" />
+                        </ListItem>
+                        <ListItem 
+                            button
+                            key="Donate"
+                            component={ NavLink }
+                            to="/donate"
+                        >
+                            <ListItemText primary="Donate" />
+                        </ListItem>
+                    </List>
+                </div>
+            </Drawer>
         </>
     );
 };

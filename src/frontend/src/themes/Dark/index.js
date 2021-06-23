@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -18,9 +18,9 @@ const darkTheme = createMuiTheme({
     },
     type: "dark",
     typography: {
-        htmlFontSize: 16,
+        htmlFontSize: 10,
         fontFamily: 'Barlow Condensed'
     }
 });
 
-export default darkTheme;
+export default responsiveFontSizes(darkTheme);

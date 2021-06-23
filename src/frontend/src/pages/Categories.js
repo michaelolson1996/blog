@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Category from '../components/Category';
 import Loading from '../components/Loading';
 import "./styles/categories.css";
+// import { Typography, Paper, Container } from '@material-ui/core';
 
 class Categories extends React.Component {
     constructor(props) {
