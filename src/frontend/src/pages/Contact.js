@@ -2,6 +2,8 @@ import React from 'react';
 import "./styles/contact.css";
 import { connect } from 'react-redux';
 import { sendEmail } from '../redux/email';
+import { Container, Paper, TextField, Button, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 class Contact extends React.Component {
     constructor(props) {
@@ -35,38 +37,78 @@ class Contact extends React.Component {
         if (this.validateEmailInfo())
             this.props.sendEmail(this.state)
         else
-            console.log("hello")
+            <></>
     }
+
+    StyledContainer = withStyles({
+        root: {
+            height: '100vh',
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }
+    })(Container);
+
+    StyledForm = withStyles({
+        root: {
+            color: '#fff',
+            padding: '40px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width:'70vw',
+            maxWidth: '550px',
+            minWidth: '200px'
+        }
+    })(Paper);
+
+    StyledTextField = withStyles({
+        root: {
+            margin: '20px 0 20px 0',
+            '& label': {
+                color: '#fff'
+            },
+            '& label.Mui-focused': {
+                color: '#fff',
+            },
+            width:'70vw',
+            maxWidth: '400px',
+            minWidth: '180px'
+        },
+    })(TextField);
+
+    StyledTextArea = withStyles({
+        root: {
+            margin: '20px 0 20px 0',
+            '& label': {
+                color: '#fff',
+            },
+            '& label.Mui-focused': {
+                color: '#fff',
+            },
+            maxHeight: '200px',
+            overflowY: 'auto',
+            width:'70vw',
+            maxWidth: '400px',
+            minWidth: '180px'
+        },
+    })(TextField)
 
     render() {
         return (
             <>
-                <div id="contact-wrapper">
-                    <div id="contact-michael-img-wrapper">
-                        <div style={{ backgroundImage: `url('/michael.jpg')` }} id="contact-michael-img"></div>
-                    </div>
-                    <div id="contact-input-section">
-                        <label className="contact-input-labels" htmlFor="name-input">
-                            Full Name
-                            <input onChange={ (e) => this.updateState("name", e.target.value) } id="name-input" className="contact-inputs" />
-                        </label>
-                        <label className="contact-input-labels" htmlFor="email-input">
-                            Email
-                            <input onChange={ (e) => this.updateState("email", e.target.value) } id="email-input" className="contact-inputs" />
-                        </label>
-                        <label className="contact-input-labels" htmlFor="subject-input">
-                            Subject
-                            <input onChange={ (e) => this.updateState("subject", e.target.value) } id="subject-input" className="contact-inputs" />
-                        </label>
-                        <label className="contact-input-labels" htmlFor="body-input">
-                            Body
-                            <textarea onChange={ (e) => this.updateState("body", e.target.value) } id="body-input" className="contact-inputs" />
-                        </label>
-                    </div>
-                    <div>
-                        <button onClick={ () => { this.sendEmail() } } id="contact-submit-button">Submit</button>
-                    </div>
-                </div>
+                <this.StyledContainer>
+                    <this.StyledForm elevation={3}>
+                        <Typography variant="h4" align="center">Contact Me</Typography>
+                        <this.StyledTextField onChange={ (e) => this.updateState("name", e.target.value) } label="Full Name" id="standard-basic" className="contact-inputs" />
+                        <this.StyledTextField onChange={ (e) => this.updateState("email", e.target.value) } label="Email" id="standard-basic" className="contact-inputs" />
+                        <this.StyledTextField onChange={ (e) => this.updateState("subject", e.target.value) } label="Subject" id="standard-basic" className="contact-inputs" />
+                        <this.StyledTextArea onChange={ (e) => this.updateState("body", e.target.value) } label="Body" multiline={true} id="body-input" />
+                        <Button onClick={ () => { this.sendEmail() } } id="contact-submit-button">Submit</Button>
+                    </this.StyledForm>
+                </this.StyledContainer>
             </>
         )
     }

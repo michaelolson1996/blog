@@ -6,6 +6,7 @@
     max-width:800px;
     width: calc(100vw -20px);
     padding:10px;
+    color: white;
 }
 
 #post-header-image {
@@ -26,7 +27,7 @@
 #post-subtitle {
     font-size: 1.6rem;
     letter-spacing: 1px;
-    color: rgb(100,100,100);
+    color: rgb(184, 183, 183);
     margin: 0;
     text-transform: capitalize;
 }
