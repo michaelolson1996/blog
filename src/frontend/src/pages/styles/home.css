@@ -1,17 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&display=swap'); */
 
 html {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
-html::-webkit-scrollbar {
+/* html::-webkit-scrollbar {
     display: none;
-}
+} */
 
 body {
     font-family: 'Barlow Condensed';
+    background-color: #0e2439;
 }
+
 
 #home-wrapper {
     font-family: 'Barlow Condensed';
@@ -182,11 +184,6 @@ figcaption {
     figure {
         width:auto
     }
-
-    /* #home-info-section {
-        max-width: 625px;
-        width: 50%
-    } */
 }
 
 
